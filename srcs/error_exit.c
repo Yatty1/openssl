@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_md5.h                                       :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/29 13:24:26 by syamada           #+#    #+#             */
-/*   Updated: 2018/08/29 13:24:59 by syamada          ###   ########.fr       */
+/*   Created: 2018/08/30 14:32:16 by syamada           #+#    #+#             */
+/*   Updated: 2018/08/30 14:43:27 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_MD5_H
-# define FT_SSL_MD5_H
+#include "ft_ssl.h"
 
-#endif
+void	error_cmd(char *str)
+{
+	ft_putstrerr("./ft_ssl: Error: ");
+	ft_putstrerr(str);
+	ft_putstrerr("is an invalid command\n");
+	ft_putstrerr("Standard commands: \n\n");
+	ft_putstrerr("Message Digest commands:\n");
+	err_mdcmd();
+	ft_putstrerr("Cipher commands:\n\n");
+	exit(1);
+}
+
+void	err_mdcmd(void)
+{
+	ft_putstrerr("md5\n");
+	ft_putstrerr("sha256\n");
+}
