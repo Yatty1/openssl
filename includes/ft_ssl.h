@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/08/30 19:38:23 by syamada          ###   ########.fr       */
+/*   Updated: 2018/08/30 21:20:04 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void			error_cmd(char *str);
 void			err_mdcmd(void);
 void			err_stdcmd(void);
 void			err_ciphercmd(void);
+void			illegal_op_md(char *cmd, char *option);
 
 #endif

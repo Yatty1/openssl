@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_stdio.c                                    :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/30 14:05:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/08/30 20:59:40 by syamada          ###   ########.fr       */
+/*   Created: 2018/08/30 21:05:10 by syamada           #+#    #+#             */
+/*   Updated: 2018/08/30 21:23:51 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void	process_stdio_cmd(void)
+void	illegal_op_md(char *cmd, char *option)
 {
-	char	*line;
-
-	line = NULL;
-	ft_putstr("FT_SSL> ");
-	while (get_next_line(0, &line) > 0)
-	{
-		ft_putstr("FT_SSL> ");
-	}
-	exit(0);
+	ft_putstrerr(cmd);
+	ft_putstrerr(": illegal option -- ");
+	ft_putstrerr(option);
+	ft_putstrerr("\n");
+	ft_putstrerr("usage: ");
+	ft_putstrerr(cmd);
+	ft_putstrerr(" [-pqr] [-s string] [files ...]\n");
+	exit(1);
 }
