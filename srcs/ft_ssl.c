@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:46:55 by syamada           #+#    #+#             */
-/*   Updated: 2018/08/30 14:47:26 by syamada          ###   ########.fr       */
+/*   Updated: 2018/08/30 19:00:27 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int		main(int argc, char **argv)
 {
 	if (argc < 2)
 		process_stdio_cmd();
-	argv += 1;
-	process_arg(argv);
+	process_arg(--argc, ++argv);
 	return (0);
 }
