@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:29:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/08/30 21:25:50 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 13:43:03 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,26 +62,23 @@ static char	**create_argv(int argc, char **argv, int *mdop)
 	return (convert_argv(argc, argv, new, i));
 }
 
-/*
-** IDEA:
-** make this function below resuable by passing 
-** function as parameter.
-** one for validation the other for printing error msg
-*/
-
-void		check_valid_option(char **argv)
+void		validate_option(char **argv, int (*f)(char),
+							void (*msg)(char *, char *))
 {
 	int		i;
 	int		j;
+	int		len;
 
 	i = 0;
 	while (argv[i] && argv[i][0] == '-')
 	{
 		j = 1;
-		while (argv[i][j])
+		len = ft_strchr(argv[i], 's') ?
+			ft_strchr_i(argv[i], 's') : ft_strlen(argv[i]);
+		while (j < len)
 		{
-			if (!is_valid_option(argv[i][j]))
-				illegal_op_md("md5", ft_strdup(argv[i] + j));
+			if (!f(argv[i][j]))
+				msg("md5", ft_strdup(argv[i] + j));
 			j++;
 		}
 		i++;
@@ -97,7 +94,7 @@ char		**check_mdop(int argc, char **argv, int *mdop)
 	len = 0;
 	if (!*argv)
 		return (argv);
-	check_valid_option(argv);
+	validate_option(argv, &is_valid_option, &illegal_op_md);
 	while (argv[i] && argv[i][0] == '-')
 	{
 		if ((len = ft_strchr_i(argv[i], 's')) > 0)

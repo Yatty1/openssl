@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 15:31:10 by syamada           #+#    #+#             */
-/*   Updated: 2018/08/30 15:31:13 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 12:03:11 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	error_cmd(char *str)
 {
 	ft_putstrerr("./ft_ssl: Error: ");
 	ft_putstrerr(str);
-	ft_putstrerr("is an invalid command\n");
+	ft_putstrerr(" is an invalid command\n\n");
 	ft_putstrerr("Standard commands: \n\n");
 	ft_putstrerr("Message Digest commands:\n");
 	err_mdcmd();
@@ -28,4 +28,5 @@ void	err_mdcmd(void)
 {
 	ft_putstrerr("md5\n");
 	ft_putstrerr("sha256\n");
+	ft_putstrerr("\n");
 }
