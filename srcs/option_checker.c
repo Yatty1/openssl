@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:29:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 13:43:03 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 16:54:30 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** if there are no such characters or no s, just create new 2d array.
 */
 
-static int	is_valid_option(char c)
+static int	is_md_option(char c)
 {
 	if (c == 'p' || c == 'q' || c == 'r' || c == 's')
 		return (1);
@@ -35,7 +35,7 @@ static char	**convert_argv(int argc, char **argv, char **new, int i)
 	return (new);
 }
 
-static char	**create_argv(int argc, char **argv, int *mdop)
+static char	**create_argv(int argc, char **argv, int *op)
 {
 	char	**new;
 	int		i;
@@ -57,7 +57,7 @@ static char	**create_argv(int argc, char **argv, int *mdop)
 			break ;
 		}
 	}
-	argv += (MATCH(*mdop, FLS) && len) ? i + 1 : i;
+	argv += (MATCH(*op, FLS) && len) ? i + 1 : i;
 	i = !len ? 0 : 1;
 	return (convert_argv(argc, argv, new, i));
 }
@@ -85,7 +85,7 @@ void		validate_option(char **argv, int (*f)(char),
 	}
 }
 
-char		**check_mdop(int argc, char **argv, int *mdop)
+char		**check_mdop(int argc, char **argv, int *op)
 {
 	int		i;
 	int		len;
@@ -94,22 +94,22 @@ char		**check_mdop(int argc, char **argv, int *mdop)
 	len = 0;
 	if (!*argv)
 		return (argv);
-	validate_option(argv, &is_valid_option, &illegal_op_md);
+	validate_option(argv, &is_md_option, &illegal_op_md);
 	while (argv[i] && argv[i][0] == '-')
 	{
 		if ((len = ft_strchr_i(argv[i], 's')) > 0)
-			*mdop |= FLS;
+			*op |= FLS;
 		len = len ? len : ft_strlen(argv[i]);
-		*mdop |= ft_strnstr(argv[i], "p", len) ? FLP : 0;
-		*mdop |= ft_strnstr(argv[i], "q", len) ? FLQ : 0;
-		*mdop |= ft_strnstr(argv[i], "r", len) ? FLR : 0;
-		if (MATCH(*mdop, FLS))
+		*op |= ft_strnstr(argv[i], "p", len) ? FLP : 0;
+		*op |= ft_strnstr(argv[i], "q", len) ? FLQ : 0;
+		*op |= ft_strnstr(argv[i], "r", len) ? FLR : 0;
+		if (MATCH(*op, FLS))
 			break ;
 		i++;
 	}
-	if (MATCH(*mdop, FLS))
+	if (MATCH(*op, FLS))
 		argc -= (argv[i][len + 1] != '\0') ? i : i + 1;
 	else
 		argc -= i;
-	return (create_argv(argc, argv, mdop));
+	return (create_argv(argc, argv, op));
 }

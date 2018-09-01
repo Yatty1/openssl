@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 11:53:09 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 13:41:12 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 16:53:17 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	process_md5(int argc, char **argv)
 {
-	int		mdop;
+	int		op;
 	int		i;
 
 	i = 0;
-	mdop = 0;
-	argv = check_mdop(argc, argv, &mdop);
-	printf("flag: %d\n", mdop);
+	op = 0;
+	argv = check_mdop(argc, argv, &op);
+	printf("flag: %d\n", op);
 	while (argv[i])
 		printf("argv: %s\n", argv[i++]);
 	ft_tdstrdel(&argv);

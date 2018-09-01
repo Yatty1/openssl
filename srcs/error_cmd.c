@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 15:31:10 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 12:03:11 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 16:43:21 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	error_cmd(char *str)
 	ft_putstrerr("Message Digest commands:\n");
 	err_mdcmd();
 	ft_putstrerr("Cipher commands:\n\n");
-	exit(1);
 }
 
 void	err_mdcmd(void)

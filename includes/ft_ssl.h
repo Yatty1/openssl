@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 11:49:24 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 16:52:22 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,18 @@
 # define FLR 0x04
 # define FLS 0x08
 
+# define CMD_NUM 2
+
+typedef void	(hash_func)(int, char **);
+
+typedef struct	s_cmd
+{
+	char		*name;
+	hash_func	*hash;
+}				t_cmd;
+
 void			process_stdio_cmd(void);
-void			process_arg(int argc, char **argv);
+void			dispatcher(int argc, char **argv);
 char			**check_mdop(int argc, char **argv, int *mdop);
 void			ft_tdstrdel(char ***tdstr);
 

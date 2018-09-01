@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/01 11:58:44 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/01 16:31:57 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ INCDIR		:= includes
 
 SSL			:= ft_ssl
 SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c \
-					process_arg.c process_stdio_cmd.c error_cmd.c \
+					process_stdio_cmd.c error_cmd.c \
 					dispatch_funcs.c option_checker.c error_exit.c)
 
 #colors
