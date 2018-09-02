@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:29:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 17:12:46 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 18:43:20 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	**create_argv(int argc, char **argv, int *op)
 	return (convert_argv(argc, argv, new, i));
 }
 
-int			validate_option(char **argv, int (*validator)(char),
+int			validate_option(char **argv, char *cmd, int (*validator)(char),
 							int (*msg)(char *, char *))
 {
 	int		i;
@@ -78,7 +78,7 @@ int			validate_option(char **argv, int (*validator)(char),
 		while (j < len)
 		{
 			if (!validator(argv[i][j]))
-				return (msg("md5", ft_strdup(argv[i] + j)));
+				return (msg(cmd, ft_strdup(argv[i] + j)));
 			j++;
 		}
 		i++;
@@ -86,7 +86,7 @@ int			validate_option(char **argv, int (*validator)(char),
 	return (1);
 }
 
-char		**check_mdop(int argc, char **argv, int *op)
+char		**check_mdop(int argc, char **argv, char *cmd, int *op)
 {
 	int		i;
 	int		len;
@@ -94,7 +94,7 @@ char		**check_mdop(int argc, char **argv, int *op)
 	i = 0;
 	if (!*argv)
 		return (argv);
-	if (!validate_option(argv, &is_md_option, &illegal_op_md))
+	if (!validate_option(argv, cmd, &is_md_option, &illegal_op_md))
 		return (NULL);
 	while (argv[i] && argv[i][0] == '-')
 	{

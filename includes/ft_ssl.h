@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 17:09:41 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 18:44:06 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@
 
 # define CMD_NUM 2
 
-typedef void	(hash_func)(int, char **);
+typedef void	(t_hash_func)(int, char **);
 
 typedef struct	s_cmd
 {
 	char		*name;
-	hash_func	*hash;
+	t_hash_func	*hash;
 }				t_cmd;
 
 void			process_stdio_cmd(void);
 void			dispatcher(int argc, char **argv);
-char			**check_mdop(int argc, char **argv, int *mdop);
+char			**check_mdop(int argc, char **argv, char *cmd, int *mdop);
 void			ft_tdstrdel(char ***tdstr);
-int				validate_option(char **argv, int (*validator)(char),
+int				validate_option(char **argv, char *cmd, int (*validator)(char),
 								int (*msg)(char *, char *));
 
 /*
