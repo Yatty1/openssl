@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 16:52:22 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/01 17:09:41 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void			process_stdio_cmd(void);
 void			dispatcher(int argc, char **argv);
 char			**check_mdop(int argc, char **argv, int *mdop);
 void			ft_tdstrdel(char ***tdstr);
+int				validate_option(char **argv, int (*validator)(char),
+								int (*msg)(char *, char *));
 
 /*
 ** command funcs
@@ -61,6 +63,6 @@ void			error_cmd(char *str);
 void			err_mdcmd(void);
 void			err_stdcmd(void);
 void			err_ciphercmd(void);
-void			illegal_op_md(char *cmd, char *option);
+int				illegal_op_md(char *cmd, char *option);
 
 #endif
