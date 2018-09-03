@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:29:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/02 12:56:06 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 16:19:38 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char		**check_mdop(int argc, char **argv, char *cmd, int *op)
 	int		len;
 
 	i = 0;
-	if (!*argv)
+	if (!*argv || argv[i][0] != '-')
 		return (argv);
 	if (!validate_option(argv, cmd, &is_md_option, &illegal_op_md))
 		return (NULL);
