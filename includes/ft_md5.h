@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:06:58 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 22:34:08 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 14:58:23 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ typedef struct		s_md5
 	uint32_t		f;
 	t_md5m			mm;
 }					t_md5;
+
+void				md5_encrypt_stdio(int op);
+int					md5_encrypt_file(char *filename, int *op);
+int					md5_encrypt_str(char *str, int *op);
 
 uint32_t			md5f(uint32_t abcd[4]);
 uint32_t			md5g(uint32_t abcd[4]);

@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:13:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 22:45:15 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 15:59:20 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ static uint32_t	g_k[64] = {
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391,
 };
 
-static short	g_m[5] = { 1, 5, 3, 7 };
+static short	g_m[5] = {
+	1, 5, 3, 7
+};
 
-static short	g_o[5] = { 0, 1, 5 ,0 };
+static short	g_o[5] = {
+	0, 1, 5 ,0
+};
+
 
 // 64 bits representing the length of original message, modulo 2 ^ 64
 // append "0" bit until message length in bits вс 448 (mod 512)
@@ -84,7 +89,8 @@ static t_md5	*transform(t_md5 *md5ob, int round, int step)
 	md5ob->abcd[0] = md5ob->abcd[3];
 	md5ob->abcd[3] = md5ob->abcd[2];
 	md5ob->abcd[2] = md5ob->abcd[1];
-	md5ob->abcd[1] = md5ob->abcd[1] + leftrotate(md5ob->f, g_s[round * 16 + step]);
+	md5ob->abcd[1] = md5ob->abcd[1]
+		+ leftrotate(md5ob->f, g_s[round * 16 + step]);
 	return (md5ob);
 }
 
