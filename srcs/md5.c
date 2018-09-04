@@ -6,13 +6,13 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 18:44:38 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 23:06:00 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 14:58:12 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void			encrypt_stdio(int op)
+void			md5_encrypt_stdio(int op)
 {
 	char	*line;
 	char	*str;
@@ -62,7 +62,7 @@ void			printmd5_with_op(t_md5 *md5, char *str, int *op)
 	ft_putchar('\n');
 }
 
-int				encrypt_file(char *filename, int *op)
+int				md5_encrypt_file(char *filename, int *op)
 {
 	int		fd;
 	int		ret;
@@ -84,7 +84,7 @@ int				encrypt_file(char *filename, int *op)
 	return (1);
 }
 
-int				encrypt_str(char *str, int *op)
+int				md5_encrypt_str(char *str, int *op)
 {
 	t_md5	*md5;
 
@@ -105,13 +105,13 @@ void			process_md5(int argc, char **argv)
 		return ;
 	if ((!*argv || MATCH(op, FLP)) &&
 			!(!*argv && MATCH(op, FLS) && !MATCH(op, FLP)))
-		encrypt_stdio(op);
+		md5_encrypt_stdio(op);
 	if (!*argv && MATCH(op, FLS))
 		noparam_error("md5", "s");
 	if (*argv && MATCH(op, FLS))
-		encrypt_str(argv[i++], &op);
+		md5_encrypt_str(argv[i++], &op);
 	while (argv[i])
-		encrypt_file(argv[i++], &op);
+		md5_encrypt_file(argv[i++], &op);
 	if (op != 0)
 		ft_tdstrdel(&argv);
 }
