@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:13:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 16:21:36 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 18:03:08 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,12 @@ t_md5			*transform_md5(t_md5 *md5ob)
 	md5ob->func[3] = &md5i;
 	while (md5ob->chunk_n--)
 	{
-		round = 0;
+		round = -1;
 		ft_memcpy(md5ob->mm.c, md5ob->msg + offset, 64);
-		while (round < 4)
+		while (++round < 4)
 		{
-			step = 0;
-			while (step < 16)
+			step = -1;
+			while (++step < 16)
 			{
 				pick_i = (g_m[round] * step + g_o[round]) % 16;
 				md5ob->f = md5ob->abcd[0] + md5ob->func[round](md5ob->abcd)
@@ -100,9 +100,7 @@ t_md5			*transform_md5(t_md5 *md5ob)
 				md5ob->abcd[3] = md5ob->abcd[2];
 				md5ob->abcd[2] = md5ob->abcd[1];
 				md5ob->abcd[1] = md5ob->abcd[1] + leftrotate(md5ob->f, g_s[round * 16 + step]);
-				step++;
 			}
-			round++;
 		}
 		offset += 64;
 	}

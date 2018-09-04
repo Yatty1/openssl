@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 16:15:57 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 17:55:40 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include <string.h>
+# include <errno.h>
 #include <stdio.h>
 
 # define MATCH(value, op) ((value & op) == op)
@@ -39,6 +41,7 @@ typedef struct		s_cmd
 
 void				process_stdio_cmd(void);
 void				dispatcher(int argc, char **argv);
+int					ft_tdstrlen(char **tdstr);
 char				**check_mdop(int argc, char **argv, char *cmd, int *mdop);
 int					validate_option(char **argv, char *cmd,
 						int (*validator)(char), int (*msg)(char *, char *));
@@ -54,6 +57,8 @@ void				process_sha3(int argc, char **argv);
 ** error messages
 */
 
+int					open_error(char *cmd, char *filename);
+int					noparam_error(char *cmd, char *option);
 void				error_cmd(char *str);
 void				err_mdcmd(void);
 void				err_stdcmd(void);

@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/03 16:20:25 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/03 16:33:48 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,9 @@ SRCDIR		:= srcs
 INCDIR		:= includes
 
 SSL			:= ft_ssl
-SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c option_checker.c\
-					process_stdio_cmd.c error_cmd.c error_exit.c \
+SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
+					option_checker.c option_helper.c \
+					error_cmd.c error_exit.c \
 					md5.c md5_encrypt.c md5_funcs.c \
 					sha256.c)
 

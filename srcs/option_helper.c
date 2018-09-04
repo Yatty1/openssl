@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_stdio.c                                    :+:      :+:    :+:   */
+/*   option_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/30 14:05:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 16:41:50 by syamada          ###   ########.fr       */
+/*   Created: 2018/09/03 16:29:13 by syamada           #+#    #+#             */
+/*   Updated: 2018/09/03 16:37:49 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-int		ft_tdstrlen(char **tdstr)
+int			validate_option(char **argv, char *cmd, int (*validator)(char),
+							int (*msg)(char *, char *))
 {
 	int		i;
+	int		j;
+	int		len;
 
 	i = 0;
-	while (tdstr[i])
-		i++;
-	return (i);
-}
-
-void	process_stdio_cmd(void)
-{
-	char	*line;
-	char	**input;
-
-	line = NULL;
-	ft_putstr("FT_SSL> ");
-	while (get_next_line(0, &line) > 0)
+	while (argv[i] && argv[i][0] == '-')
 	{
-		if (line && *line)
+		j = 1;
+		len = ft_strchr(argv[i], 's') ?
+			ft_strchr_i(argv[i], 's') : ft_strlen(argv[i]);
+		while (j < len)
 		{
-			ft_putendl(line);
-			input = ft_strsplit(line, ' ');
-			dispatcher(ft_tdstrlen(input), input);
-			ft_tdstrdel(&input);
+			if (!validator(argv[i][j]))
+				return (msg(cmd, ft_strdup(argv[i] + j)));
+			j++;
 		}
-		ft_strdel(&line);
-		ft_putstr("FT_SSL> ");
+		i++;
 	}
-	exit(0);
+	return (1);
 }

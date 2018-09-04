@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:06:58 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 16:21:37 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 18:12:17 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ uint32_t			leftrotate(uint32_t a, int n);
 t_md5				*init_md5(const char *msg, int len);
 t_md5				*transform_md5(t_md5 *md5ob);
 void				output_md5(t_md5 *mdob);
+void				printmd5_with_op(t_md5 *md5, char *str, int *op);
 
 #endif
