@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:05:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 16:41:50 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 22:36:31 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	process_stdio_cmd(void)
 	{
 		if (line && *line)
 		{
-			ft_putendl(line);
 			input = ft_strsplit(line, ' ');
 			dispatcher(ft_tdstrlen(input), input);
 			ft_tdstrdel(&input);

@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:06:58 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 18:12:17 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 22:34:08 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ typedef union		u_encode
 
 typedef struct		s_md5
 {
-	uint32_t	abcd[4];
-	t_md5func	*func[4];
-	uint32_t	md[4];
-	char		*msg;
-	int			chunk_n;
-	uint32_t	f;
-	t_md5m		mm;
+	uint32_t		abcd[4];
+	t_md5func		*func[4];
+	uint32_t		md[4];
+	unsigned char	*msg;
+	int				chunk_n;
+	uint32_t		f;
+	t_md5m			mm;
 }					t_md5;
 
 uint32_t			md5f(uint32_t abcd[4]);

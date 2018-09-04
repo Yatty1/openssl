@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 18:44:38 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 18:21:42 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/03 23:06:00 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ void			encrypt_stdio(int op)
 	str = ft_strnew(1);
 	while (get_next_line(0, &line) > 0)
 	{
-			str = !*str ? ft_strjoinfree_with(line, str, '\n')
-				: ft_strjoinfree_with(str, line, '\n');
+		line = ft_strappend(line, '\n');
+		str = !*str ? ft_strjoinfree(line, str)
+			: ft_strjoinfree(str, line);
 	}
 	md5 = init_md5(str, ft_strlen(str));
 	md5 = transform_md5(md5);
@@ -77,7 +78,7 @@ int				encrypt_file(char *filename, int *op)
 		buf[ret] = '\0';
 		str = ft_strjoinfree(str, ft_strdup(buf));
 	}
-	md5 = init_md5(filename, ft_strlen(filename));
+	md5 = init_md5(str, ft_strlen(str));
 	md5 = transform_md5(md5);
 	printmd5_with_op(md5, filename, op);
 	return (1);
