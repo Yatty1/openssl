@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:06:58 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 14:58:23 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 21:36:11 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ typedef union		u_md5m
 	uint32_t		in[16];
 	char			c[64];
 }					t_md5m;
-
-typedef union		u_encode
-{
-	uint32_t		in;
-	unsigned  char	b[4];
-}					t_encode;
 
 typedef struct		s_md5
 {

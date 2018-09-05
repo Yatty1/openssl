@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 21:35:20 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 21:36:23 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/includes/get_next_line.h"
 # include "../libft/includes/ft_printf.h"
 # include "ft_md5.h"
+# include "ft_sha256.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -38,6 +39,12 @@ typedef struct		s_cmd
 	char		*name;
 	t_hash_func	*hash;
 }					t_cmd;
+
+typedef union		u_encode32
+{
+	uint32_t		in;
+	unsigned  char	b[4];
+}					t_encode32;
 
 void				process_stdio_cmd(void);
 void				dispatcher(int argc, char **argv);

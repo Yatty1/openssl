@@ -6,13 +6,13 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 16:43:22 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 21:59:10 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static const uint32_t	g_sha256k[64] = {
+static const uint32_t	g_k[64] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -30,3 +30,84 @@ static const uint32_t	g_sha256k[64] = {
 	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
+
+static void				init_properties(t_sha256 *ob)
+{
+	ob->hash[0] = 0x6a09e667;
+    ob->hash[1] = 0xbb67ae85;
+    ob->hash[2] = 0x3c6ef372;
+    ob->hash[3] = 0xa54ff53a;
+    ob->hash[4] = 0x510e527f;
+    ob->hash[5] = 0x9b05688c;
+    ob->hash[6] = 0x1f83d9ab;
+    ob->hash[7] = 0x5be0cd19;
+	ob->func[0] = &sha256ch;
+	ob->func[1] = &sha256ma;
+	ob->func[2] = &sha256sig0;
+	ob->func[3] = &sha256sig1;
+	ob->func[4] = &sha256sig2;
+	ob->func[5] = &sha256sig3;
+}
+
+/* How to do padding
+** count chunks based on length
+** add 1 to the end
+** fill up 0 k bits based on this formula l + 1 + k = 448
+** (where l == length of str)
+** length * 8 == length in bits
+** add original length to last 64 bits of msg
+*/
+
+t_sha256				*init_sha256(const char *str, int len)
+{
+	t_sha256	*ob;
+	int			i;
+	long long	u;
+
+	ob = (t_sha256 *)malloc(sizeof(t_sha256));
+	init_properties(ob);
+	ob->chunk_n = 1 + (len + 8) / 64;
+	ob->msg = ft_memalloc(64 * ob->chunk_n);
+	ft_memcpy(ob->msg, str, len);
+	ob->msg[len] = (unsigned char)0x80;
+	i = len + 1;
+	while (i < (64 * ob->chunk_n) - 8)
+		ob->msg[i++] = 0;
+	u = len * 8;
+	ft_memcpy(ob->msg + i, &u, 8);
+	return (ob);
+}
+
+/* How to transform
+** a message schedule of sixty four 32-bit words
+** eight working variables of 32 bits each
+** a hash value of eight 32 bits words
+** 1. prepare the message schedule W
+** 2. initialize the eight working variables with const hash nums
+** 3. 64 steps with sig 0 and sig 1
+** 4. compute i th intermediate hash value
+*/
+
+t_sha256				*transform_sha256(t_sha256 *ob)
+{
+	return (ob);
+}
+
+void					output_sha256(t_sha256 *ob)
+{
+	int			i;
+	int			j;
+	t_encode32	m;
+
+	i = 0;
+	while (i < 8)
+	{
+		m.in = ob->hash[i];
+		j = 0;
+		while (j < 4)
+			ft_printf("%02x", m.b[j++]);
+		i++;
+	}
+	free(ob->msg);
+	free(ob);
+}

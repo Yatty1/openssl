@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:13:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 15:59:20 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/04 21:39:14 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void			output_md5(t_md5 *md5ob)
 {
 	int			i;
 	int			j;
-	t_encode	m;
+	t_encode32	m;
 
 	i = 0;
 	while (i < 4)
@@ -137,4 +137,6 @@ void			output_md5(t_md5 *md5ob)
 			ft_printf("%02x", m.b[j++]);
 		i++;
 	}
+	free(md5ob->msg);
+	free(md5ob);
 }
