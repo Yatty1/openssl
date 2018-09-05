@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 21:59:10 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/05 13:25:38 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static void				init_properties(t_sha256 *ob)
     ob->hash[5] = 0x9b05688c;
     ob->hash[6] = 0x1f83d9ab;
     ob->hash[7] = 0x5be0cd19;
-	ob->func[0] = &sha256ch;
-	ob->func[1] = &sha256ma;
+	ob->ch = &sha256ch;
+	ob->ma = &sha256ma;
 	ob->sigf[0] = &sha256sig0;
 	ob->sigf[1] = &sha256sig1;
 	ob->sigf[2] = &sha256sig2;
@@ -91,6 +91,51 @@ t_sha256				*init_sha256(const char *str, int len)
 
 t_sha256				*transform_sha256(t_sha256 *ob)
 {
+	int			i;
+	int			t;
+	uint32_t	w[10];
+	uint32_t	m[10][10];
+
+	i = 0;
+	t = -1;
+	while (i < ob->chunk_n)
+	{
+		//prepare message schedule w
+		// to get m, I need to encode 4 chars per int (64 per block)
+		// with big-endian ecoding
+		while (++t < 16)
+			w[t] = m[i][t];
+		while (++t < 64)
+			w[t] = ob->sigf[3](w[t - 2]) + w[t - 7] + ob->sigf[2](w[t - 15]) + w[t - 16];
+		t = -1;
+		//init eight owrking variables with previous hash value; (which means hash^i-1 th)
+		while (++t < 8)
+			ob->h[t] = ob->hash[t];
+		t = -1;
+		//addition modulo2^32
+		while (++t < 64)
+		{
+			ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + w[t];
+			ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
+			ob->h[7] = ob->h[6];
+			ob->h[6] = ob->h[5];
+			ob->h[5] = ob->h[4];
+			ob->h[4] = ob->h[3] + ob->t1;
+			ob->h[3] = ob->h[2];
+			ob->h[2] = ob->h[1];
+			ob->h[1] = ob->h[0];
+			ob->h[0] = ob->t1 + ob->t2;
+		}
+		ob->hash[0] = ob->hash[0] + ob->h[0];
+		ob->hash[1] = ob->hash[1] + ob->h[1];
+		ob->hash[2] = ob->hash[2] + ob->h[2];
+		ob->hash[3] = ob->hash[3] + ob->h[3];
+		ob->hash[4] = ob->hash[4] + ob->h[4];
+		ob->hash[5] = ob->hash[5] + ob->h[5];
+		ob->hash[6] = ob->hash[6] + ob->h[6];
+		ob->hash[7] = ob->hash[7] + ob->h[7];
+		i++;
+	}
 	return (ob);
 }
 

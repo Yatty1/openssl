@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 19:41:53 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 21:39:13 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/05 13:25:39 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ typedef struct	s_sha256
 {
 	uint32_t		hash[8];
 	uint32_t		h[8];
-	t_sha256func	*func[2];
+	t_sha256func	*ch;
+	t_sha256func	*ma;
 	t_sha256sig		*sigf[4];
+	uint32_t		t1;
+	uint32_t		t2;
 	unsigned char	*msg;
 	int				chunk_n;
 }				t_sha256;
