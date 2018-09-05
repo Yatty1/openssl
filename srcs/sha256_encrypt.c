@@ -43,10 +43,10 @@ static void				init_properties(t_sha256 *ob)
     ob->hash[7] = 0x5be0cd19;
 	ob->func[0] = &sha256ch;
 	ob->func[1] = &sha256ma;
-	ob->func[2] = &sha256sig0;
-	ob->func[3] = &sha256sig1;
-	ob->func[4] = &sha256sig2;
-	ob->func[5] = &sha256sig3;
+	ob->sigf[0] = &sha256sig0;
+	ob->sigf[1] = &sha256sig1;
+	ob->sigf[2] = &sha256sig2;
+	ob->sigf[3] = &sha256sig3;
 }
 
 /* How to do padding
@@ -78,7 +78,8 @@ t_sha256				*init_sha256(const char *str, int len)
 	return (ob);
 }
 
-/* How to transform
+/*
+**How to transform
 ** a message schedule of sixty four 32-bit words
 ** eight working variables of 32 bits each
 ** a hash value of eight 32 bits words
