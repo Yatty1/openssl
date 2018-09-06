@@ -91,31 +91,29 @@ t_sha256				*init_sha256(const char *str, int len)
 
 t_sha256				*transform_sha256(t_sha256 *ob)
 {
-	int			i;
+	t_encode512	e;
 	int			t;
-	uint32_t	w[10];
-	uint32_t	m[10][10];
+	int			offset;
 
-	i = 0;
-	t = -1;
-	while (i < ob->chunk_n)
+	offset = 0;
+	while (ob->chunk_n--)
 	{
-		//prepare message schedule w
-		// to get m, I need to encode 4 chars per int (64 per block)
-		// with big-endian ecoding
-		while (++t < 16)
-			w[t] = m[i][t];
-		while (++t < 64)
-			w[t] = ob->sigf[3](w[t - 2]) + w[t - 7] + ob->sigf[2](w[t - 15]) + w[t - 16];
+		//preparing working variable M
+		ft_memcpy(e.c, ob->msg + offset, 64);
 		t = -1;
+		while (++t < 16)
+			ob->w[t] = e.m[t];
+		while (++t < 64)
+			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7] + ob->sigf[2](ob->w[t - 15]) + ob->w[t - 16];
 		//init eight owrking variables with previous hash value; (which means hash^i-1 th)
+		t = -1;
 		while (++t < 8)
 			ob->h[t] = ob->hash[t];
 		t = -1;
-		//addition modulo2^32
+		// addition modulo2^32
 		while (++t < 64)
 		{
-			ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + w[t];
+			ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + ob->w[t];
 			ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
 			ob->h[7] = ob->h[6];
 			ob->h[6] = ob->h[5];
@@ -126,15 +124,10 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 			ob->h[1] = ob->h[0];
 			ob->h[0] = ob->t1 + ob->t2;
 		}
-		ob->hash[0] = ob->hash[0] + ob->h[0];
-		ob->hash[1] = ob->hash[1] + ob->h[1];
-		ob->hash[2] = ob->hash[2] + ob->h[2];
-		ob->hash[3] = ob->hash[3] + ob->h[3];
-		ob->hash[4] = ob->hash[4] + ob->h[4];
-		ob->hash[5] = ob->hash[5] + ob->h[5];
-		ob->hash[6] = ob->hash[6] + ob->h[6];
-		ob->hash[7] = ob->hash[7] + ob->h[7];
-		i++;
+		t = -1;
+		while (++t < 8)
+			ob->hash[t] = ob->hash[t] + ob->h[t];
+		offset += 64;
 	}
 	return (ob);
 }

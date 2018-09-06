@@ -28,6 +28,7 @@ typedef struct	s_sha256
 	t_sha256sig		*sigf[4];
 	uint32_t		t1;
 	uint32_t		t2;
+	uint32_t		w[64];
 	unsigned char	*msg;
 	int				chunk_n;
 }				t_sha256;

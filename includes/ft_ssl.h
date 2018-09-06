@@ -40,6 +40,12 @@ typedef struct		s_cmd
 	t_hash_func	*hash;
 }					t_cmd;
 
+typedef union	u_encode512
+{
+	uint32_t		m[16];
+	unsigned char	c[64];
+}				t_encode512;
+
 typedef union		u_encode32
 {
 	uint32_t		in;
