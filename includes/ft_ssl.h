@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 21:36:23 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 13:49:43 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ typedef struct		s_cmd
 	char		*name;
 	t_hash_func	*hash;
 }					t_cmd;
-
-typedef union	u_encode512
-{
-	uint32_t		m[16];
-	unsigned char	c[64];
-}				t_encode512;
 
 typedef union		u_encode32
 {

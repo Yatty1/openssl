@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 18:45:11 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 21:07:15 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 17:15:26 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ void			printsha256_with_op(t_sha256 *sha256, char *str, int *op)
 	}
 	else if (MATCH(*op, FLS))
 	{
-		MATCH(*op, FLR) ? 0 : ft_printf("SHA256 (\"%s\") = ", str);
+		MATCH(*op, FLR) ? 0 : ft_printf("SHA256(\"%s\")= ", str);
 		output_sha256(sha256);
 		MATCH(*op, FLR) ? ft_printf(" \"%s\"", str) : 0;
 		*op ^= FLS;
 	}
 	else
 	{
-		ft_printf("SHA256 (%s) = ", str);
+		ft_printf("SHA256(%s)= ", str);
 		output_sha256(sha256);
 	}
 	ft_putchar('\n');

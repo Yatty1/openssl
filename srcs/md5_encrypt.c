@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:13:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/04 21:39:14 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 15:13:22 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,9 @@ t_md5			*init_md5(const char *msg, int len)
 	ft_memcpy(md5ob->msg, msg, len);
 	md5ob->msg[len] = (unsigned char)0x80;
 	i = len + 1;
-	while (i < (64 * md5ob->chunk_n))
+	while (i < (64 * md5ob->chunk_n) - 8)
 		md5ob->msg[i++] = 0;
 	u = 8 * len;
-	i -= 8;
 	ft_memcpy(md5ob->msg + i, &u, 8);
 	return (md5ob);
 }

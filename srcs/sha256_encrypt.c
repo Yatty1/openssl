@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/05 13:25:38 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 17:46:48 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,44 +89,50 @@ t_sha256				*init_sha256(const char *str, int len)
 ** 4. compute i th intermediate hash value
 */
 
+void					transform(t_sha256 *ob)
+{
+	int		t;
+
+	t = 0;
+	while (t < 64)
+	{
+		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + ob->w[t];
+		ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
+		ob->h[7] = ob->h[6];
+		ob->h[6] = ob->h[5];
+		ob->h[5] = ob->h[4];
+		ob->h[4] = ob->h[3] + ob->t1;
+		ob->h[3] = ob->h[2];
+		ob->h[2] = ob->h[1];
+		ob->h[1] = ob->h[0];
+		ob->h[0] = ob->t1 + ob->t2;
+		t++;
+	}
+}
+
 t_sha256				*transform_sha256(t_sha256 *ob)
 {
-	t_encode512	e;
 	int			t;
 	int			offset;
 
 	offset = 0;
 	while (ob->chunk_n--)
 	{
-		//preparing working variable M
-		ft_memcpy(e.c, ob->msg + offset, 64);
+		ft_memcpy(ob->e.c, ob->msg + offset, 64);
 		t = -1;
 		while (++t < 16)
-			ob->w[t] = e.m[t];
+			ob->w[t] = ob->e.m[t];
+		t = 15;
 		while (++t < 64)
-			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7] + ob->sigf[2](ob->w[t - 15]) + ob->w[t - 16];
-		//init eight owrking variables with previous hash value; (which means hash^i-1 th)
+			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7]
+				+ ob->sigf[2](ob->w[t - 15]) + ob->w[t - 16];
 		t = -1;
 		while (++t < 8)
 			ob->h[t] = ob->hash[t];
-		t = -1;
-		// addition modulo2^32
-		while (++t < 64)
-		{
-			ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + ob->w[t];
-			ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
-			ob->h[7] = ob->h[6];
-			ob->h[6] = ob->h[5];
-			ob->h[5] = ob->h[4];
-			ob->h[4] = ob->h[3] + ob->t1;
-			ob->h[3] = ob->h[2];
-			ob->h[2] = ob->h[1];
-			ob->h[1] = ob->h[0];
-			ob->h[0] = ob->t1 + ob->t2;
-		}
+		transform(ob);
 		t = -1;
 		while (++t < 8)
-			ob->hash[t] = ob->hash[t] + ob->h[t];
+			ob->hash[t] += ob->h[t];
 		offset += 64;
 	}
 	return (ob);
@@ -142,9 +148,9 @@ void					output_sha256(t_sha256 *ob)
 	while (i < 8)
 	{
 		m.in = ob->hash[i];
-		j = 0;
-		while (j < 4)
-			ft_printf("%02x", m.b[j++]);
+		j = 4;
+		while (j--)
+			ft_printf("%02x", m.b[j]);
 		i++;
 	}
 	free(ob->msg);

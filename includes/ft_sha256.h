@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 19:41:53 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/05 13:25:39 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 17:49:04 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@
 typedef uint32_t	(t_sha256func)(uint32_t hash[8]);
 typedef uint32_t	(t_sha256sig)(uint32_t hash);
 
+typedef union	u_encode512
+{
+	uint32_t		m[16];
+	unsigned char	c[64];
+}				t_encode512;
+
 typedef struct	s_sha256
 {
 	uint32_t		hash[8];
@@ -29,6 +35,7 @@ typedef struct	s_sha256
 	uint32_t		t1;
 	uint32_t		t2;
 	uint32_t		w[64];
+	t_encode512		e;
 	unsigned char	*msg;
 	int				chunk_n;
 }				t_sha256;

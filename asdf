@@ -1,0 +1,4 @@
+arg="Makefile"; ./ft_ssl sha256 $arg && openssl sha256 $arg
+arg="author"; ./ft_ssl sha256 $arg && openssl sha256 $arg
+echo test/test1 | ./ft_ssl sha256 && echo test/test1 | openssl sha256
+echo test/test2 | ./ft_ssl sha256 && echo test/test2 | openssl sha256
