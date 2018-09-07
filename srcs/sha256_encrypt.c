@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/06 23:13:44 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/07 13:21:09 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_sha256				*init_sha256(const char *str, int len)
 {
 	t_sha256	*ob;
 	int			i;
-	long long	u;
+	uint32_t	u;
 
 	ob = (t_sha256 *)malloc(sizeof(t_sha256));
 	init_properties(ob);
@@ -71,10 +71,15 @@ t_sha256				*init_sha256(const char *str, int len)
 	ft_memcpy(ob->msg, str, len);
 	ob->msg[len] = (unsigned char)0x80;
 	i = len + 1;
-	while (i < (64 * ob->chunk_n) - 8)
+	while (i < (64 * ob->chunk_n))
 		ob->msg[i++] = 0;
 	u = len * 8;
-	ft_memcpy(ob->msg + i, &u, 8);
+	//here it's big-endian boii!!!!!!!
+	i -= 4;
+	ob->msg[i] = u >> 24;
+	ob->msg[i + 1] = u >> 16;
+	ob->msg[i + 2] = u >> 8;
+	ob->msg[i + 3] = u;
 	return (ob);
 }
 
@@ -152,9 +157,9 @@ void					output_sha256(t_sha256 *ob)
 	while (i < 8)
 	{
 		m.in = ob->hash[i];
-		j = 0;
-		while (j < 4)
-			ft_printf("%02x", m.b[j++]);
+		j = 4;
+		while (j--)
+			ft_printf("%02x", m.b[j]);
 		i++;
 	}
 	free(ob->msg);
