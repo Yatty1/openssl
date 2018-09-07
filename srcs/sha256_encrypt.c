@@ -6,13 +6,13 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/06 17:46:48 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 23:13:44 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static const uint32_t	g_k[64] = {
+static const uint32_t	g_sk[64] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -96,7 +96,7 @@ void					transform(t_sha256 *ob)
 	t = 0;
 	while (t < 64)
 	{
-		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + ob->w[t];
+		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_sk[t] + ob->w[t];
 		ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
 		ob->h[7] = ob->h[6];
 		ob->h[6] = ob->h[5];
@@ -118,10 +118,14 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 	offset = 0;
 	while (ob->chunk_n--)
 	{
-		ft_memcpy(ob->e.c, ob->msg + offset, 64);
+//		ft_memcpy(ob->e.c, ob->msg + offset, 64);
+//		t = -1;
+//		while (++t < 16)
+//			ob->w[t] = ob->e.m[t];
 		t = -1;
 		while (++t < 16)
-			ob->w[t] = ob->e.m[t];
+			ob->w[t] = ob->msg[offset + t * 4 + 0] << 24 | ob->msg[offset + t * 4 + 1] << 16
+				| ob->msg[offset + t * 4 + 2] << 8 | ob->msg[offset + t * 4 + 3] << 0;
 		t = 15;
 		while (++t < 64)
 			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7]
@@ -148,9 +152,9 @@ void					output_sha256(t_sha256 *ob)
 	while (i < 8)
 	{
 		m.in = ob->hash[i];
-		j = 4;
-		while (j--)
-			ft_printf("%02x", m.b[j]);
+		j = 0;
+		while (j < 4)
+			ft_printf("%02x", m.b[j++]);
 		i++;
 	}
 	free(ob->msg);

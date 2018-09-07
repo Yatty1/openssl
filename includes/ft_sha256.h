@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 19:41:53 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/06 17:49:04 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/06 21:28:30 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # define ROTR(x, n, w) ((x >> n) | (x << (w - n)))
 # define ROTL(x, n, w) ((x << n) | (x >> (w - n)))
+# define CSIG0(x) ()
+# define CSIG1(x) ()
+# define SSIG0(x) ()
+# define SSIG1(x) ()
 
 typedef uint32_t	(t_sha256func)(uint32_t hash[8]);
 typedef uint32_t	(t_sha256sig)(uint32_t hash);
