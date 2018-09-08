@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 13:21:09 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/07 21:48:05 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define FLS 0x08
 
 # define CMD_NUM 2
+
+# define ROTR(x, n, w) ((x >> n) | (x << (w - n)))
+# define ROTL(x, n, w) ((x << n) | (x >> (w - n)))
 
 typedef void		(t_hash_func)(int, char **);
 

@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 13:21:09 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/07 22:03:37 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_sha256				*init_sha256(const char *str, int len)
 {
 	t_sha256	*ob;
 	int			i;
-	uint32_t	u;
+	long long	u;
 
 	ob = (t_sha256 *)malloc(sizeof(t_sha256));
 	init_properties(ob);
@@ -71,15 +71,17 @@ t_sha256				*init_sha256(const char *str, int len)
 	ft_memcpy(ob->msg, str, len);
 	ob->msg[len] = (unsigned char)0x80;
 	i = len + 1;
-	while (i < (64 * ob->chunk_n))
+	while (i < (64 * ob->chunk_n) - 8)
 		ob->msg[i++] = 0;
 	u = len * 8;
-	//here it's big-endian boii!!!!!!!
-	i -= 4;
-	ob->msg[i] = u >> 24;
-	ob->msg[i + 1] = u >> 16;
-	ob->msg[i + 2] = u >> 8;
-	ob->msg[i + 3] = u;
+	ob->msg[i] = u >> 56;
+	ob->msg[i + 1] = u >> 48;
+	ob->msg[i + 2] = u >> 40;
+	ob->msg[i + 3] = u >> 32;
+	ob->msg[i + 4] = u >> 24;
+	ob->msg[i + 5] = u >> 16;
+	ob->msg[i + 6] = u >> 8;
+	ob->msg[i + 7] = u;
 	return (ob);
 }
 
@@ -123,14 +125,9 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 	offset = 0;
 	while (ob->chunk_n--)
 	{
-//		ft_memcpy(ob->e.c, ob->msg + offset, 64);
-//		t = -1;
-//		while (++t < 16)
-//			ob->w[t] = ob->e.m[t];
 		t = -1;
 		while (++t < 16)
-			ob->w[t] = ob->msg[offset + t * 4 + 0] << 24 | ob->msg[offset + t * 4 + 1] << 16
-				| ob->msg[offset + t * 4 + 2] << 8 | ob->msg[offset + t * 4 + 3] << 0;
+			ob->w[t] = ENCODE32(ob->msg, offset, t);
 		t = 15;
 		while (++t < 64)
 			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7]
