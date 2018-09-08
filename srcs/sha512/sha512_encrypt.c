@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:31:25 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 15:12:01 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 16:29:44 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ t_sha512				*transform_sha512(t_sha512 *ob)
 		t = -1;
 		while (++t < 8)
 			ob->hash[t] += ob->h[t];
+		ft_memset(ob->w, 0, 80);
 		offset += 128;
 	}
 	return (ob);

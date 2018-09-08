@@ -24,4 +24,5 @@ arg="Makefile"; ./ft_ssl sha512 $arg && openssl sha512 $arg
 arg="author"; ./ft_ssl sha512 $arg && openssl sha512 $arg
 echo test/test1 | ./ft_ssl sha512 && echo test/test1 | openssl sha512
 echo test/test2 | ./ft_ssl sha512 && echo test/test2 | openssl sha512
+echo test/test3 | ./ft_ssl sha512 && echo test/test3 | openssl sha512
 echo "This is awesome" | ./ft_ssl sha512 && echo "This is awesome" | openssl sha512

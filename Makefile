@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/08 15:10:24 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/08 16:11:36 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,11 @@ fclean:
 
 .PHONY: re
 re: fclean all
+
+sanitize: $(LIBDIR) $(LIBDIR)/$(LIB)
+	@printf "%b" "$(NO_COLOR)Creating $(EXEC_COLOR)$@"
+	@$(CC) -o $@ $(CFLAG) $(SANITIZER) $(SSLSRC) -I$(INCDIR) -L$< -lft
+	@printf "%b" " ✔\n"
 
 .PHONY: debug
 debug:

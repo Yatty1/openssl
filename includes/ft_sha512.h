@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:24:33 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 14:49:37 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 16:29:44 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct	s_sha512
 	uint64_t		t1;
 	uint64_t		t2;
 	uint64_t		w[80];
-	t_encode512		e;
 	unsigned char	*msg;
 	int				chunk_n;
 }				t_sha512;
