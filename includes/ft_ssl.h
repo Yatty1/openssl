@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 21:48:05 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 00:16:30 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/includes/ft_printf.h"
 # include "ft_md5.h"
 # include "ft_sha256.h"
+# include "ft_sha512.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -30,7 +31,7 @@
 # define FLR 0x04
 # define FLS 0x08
 
-# define CMD_NUM 2
+# define CMD_NUM 4
 
 # define ROTR(x, n, w) ((x >> n) | (x << (w - n)))
 # define ROTL(x, n, w) ((x << n) | (x >> (w - n)))
@@ -49,6 +50,12 @@ typedef union		u_encode32
 	unsigned  char	b[4];
 }					t_encode32;
 
+typedef union		u_encode64
+{
+	uint64_t		in;
+	unsigned  char	b[8];
+}					t_encode64;
+
 void				process_stdio_cmd(void);
 void				dispatcher(int argc, char **argv);
 int					ft_tdstrlen(char **tdstr);
@@ -61,6 +68,8 @@ int					validate_option(char **argv, char *cmd,
 
 void				process_md5(int argc, char **argv);
 void				process_sha256(int argc, char **argv);
+void				process_sha224(int argc, char **argv);
+void				process_sha512(int argc, char **argv);
 void				process_sha3(int argc, char **argv);
 
 /*

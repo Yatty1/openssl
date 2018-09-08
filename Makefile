@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/07 22:39:50 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/07 23:51:20 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ INCDIR		:= includes
 
 MD5DIR		:= md5
 SHA256DIR	:= sha256
+SHA224DIR	:= sha224
+SHA512DIR	:= sha512
 
 SSL			:= ft_ssl
 
@@ -31,10 +33,17 @@ MD5SRC		:= $(addprefix $(MD5DIR)/, md5.c md5_encrypt.c md5_funcs.c)
 SHA256SRC	:= $(addprefix $(SHA256DIR)/, sha256.c sha256_encrypt.c \
 						sha256_sigs.c sha256_funcs.c)
 
+SHA224SRC	:= $(addprefix $(SHA224DIR)/, sha224.c sha224_encrypt.c)
+
+SHA512SRC	:= $(addprefix $(SHA512DIR)/, sha512.c sha512_encrypt.c \
+						sha512_sigs.c sha512_funcs.c)
+
 SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
 					option_checker.c option_helper.c \
 					error_cmd.c error_exit.c)
-SSLSRC		+= $(addprefix $(SRCDIR)/, $(MD5SRC) $(SHA256SRC))
+
+SSLSRC		+= $(addprefix $(SRCDIR)/, $(MD5SRC) $(SHA256SRC) \
+			   			$(SHA224SRC) $(SHA512SRC))
 
 
 #colors

@@ -1,4 +1,23 @@
+printf "%b" "sha265\n"
 arg="Makefile"; ./ft_ssl sha256 $arg && openssl sha256 $arg
 arg="author"; ./ft_ssl sha256 $arg && openssl sha256 $arg
 echo test/test1 | ./ft_ssl sha256 && echo test/test1 | openssl sha256
 echo test/test2 | ./ft_ssl sha256 && echo test/test2 | openssl sha256
+
+printf "%b" "\nsha224\n"
+arg="Makefile"; ./ft_ssl sha224 $arg && openssl sha224 $arg
+arg="author"; ./ft_ssl sha224 $arg && openssl sha224 $arg
+echo test/test1 | ./ft_ssl sha224 && echo test/test1 | openssl sha224
+echo test/test2 | ./ft_ssl sha224 && echo test/test2 | openssl sha224
+
+printf "%b" "\nmd5\n"
+arg="Makefile"; ./ft_ssl md5 $arg && openssl md5 $arg
+arg="author"; ./ft_ssl md5 $arg && openssl md5 $arg
+echo test/test1 | ./ft_ssl md5 && echo test/test1 | openssl md5
+echo test/test2 | ./ft_ssl md5 && echo test/test2 | openssl md5
+
+printf "%b" "\nsha512\n"
+arg="Makefile"; ./ft_ssl sha512 $arg && openssl sha512 $arg
+arg="author"; ./ft_ssl sha512 $arg && openssl sha512 $arg
+echo test/test1 | ./ft_ssl sha512 && echo test/test1 | openssl sha512
+echo test/test2 | ./ft_ssl sha512 && echo test/test2 | openssl sha512

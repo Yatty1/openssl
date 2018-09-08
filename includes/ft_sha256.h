@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 19:41:53 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 21:58:27 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 00:11:31 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,10 @@ uint32_t	sha256sig3(uint32_t hash);
 t_sha256	*init_sha256(const char *str, int len);
 t_sha256	*transform_sha256(t_sha256 *ob);
 void		output_sha256(t_sha256 *ob);
+
+t_sha256	*init_sha224(const char *str, int len);
+t_sha256	*transform_sha224(t_sha256 *ob);
+void		output_sha224(t_sha256 *ob);
+
 
 #endif

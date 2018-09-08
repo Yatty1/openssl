@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256_encrypt.c                                   :+:      :+:    :+:   */
+/*   sha224_encrypt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 00:52:51 by syamada          ###   ########.fr       */
+/*   Created: 2018/09/07 22:46:13 by syamada           #+#    #+#             */
+/*   Updated: 2018/09/07 23:02:44 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static const uint32_t	g_sk[64] = {
 
 static void				init_properties(t_sha256 *ob)
 {
-	ob->hash[0] = 0x6a09e667;
-	ob->hash[1] = 0xbb67ae85;
-	ob->hash[2] = 0x3c6ef372;
-	ob->hash[3] = 0xa54ff53a;
-	ob->hash[4] = 0x510e527f;
-	ob->hash[5] = 0x9b05688c;
-	ob->hash[6] = 0x1f83d9ab;
-	ob->hash[7] = 0x5be0cd19;
+	ob->hash[0] = 0xc1059ed8;
+	ob->hash[1] = 0x367cd507;
+	ob->hash[2] = 0x3070dd17;
+	ob->hash[3] = 0xf70e5939;
+	ob->hash[4] = 0xffc00b31;
+	ob->hash[5] = 0x68581511;
+	ob->hash[6] = 0x64f98fa7;
+	ob->hash[7] = 0xbefa4fa4;
 	ob->ch = &sha256ch;
 	ob->ma = &sha256ma;
 	ob->sigf[0] = &sha256sig0;
@@ -49,17 +49,7 @@ static void				init_properties(t_sha256 *ob)
 	ob->sigf[3] = &sha256sig3;
 }
 
-/*
-** How to do padding
-** count chunks based on length
-** add 1 to the end
-** fill up 0 k bits based on this formula l + 1 + k = 448
-** (where l == length of str)
-** length * 8 == length in bits
-** add original length to last 64 bits of msg
-*/
-
-t_sha256				*init_sha256(const char *str, int len)
+t_sha256				*init_sha224(const char *str, int len)
 {
 	t_sha256	*ob;
 	int			i;
@@ -86,18 +76,7 @@ t_sha256				*init_sha256(const char *str, int len)
 	return (ob);
 }
 
-/*
-**How to transform
-** a message schedule of sixty four 32-bit words
-** eight working variables of 32 bits each
-** a hash value of eight 32 bits words
-** 1. prepare the message schedule W
-** 2. initialize the eight working variables with const hash nums
-** 3. 64 steps with sig 0 and sig 1
-** 4. compute i th intermediate hash value
-*/
-
-void					transform(t_sha256 *ob)
+static void				transform(t_sha256 *ob)
 {
 	int		t;
 
@@ -119,7 +98,7 @@ void					transform(t_sha256 *ob)
 	}
 }
 
-t_sha256				*transform_sha256(t_sha256 *ob)
+t_sha256				*transform_sha224(t_sha256 *ob)
 {
 	int			t;
 	int			offset;
@@ -146,14 +125,14 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 	return (ob);
 }
 
-void					output_sha256(t_sha256 *ob)
+void					output_sha224(t_sha256 *ob)
 {
 	int			i;
 	int			j;
 	t_encode32	m;
 
 	i = 0;
-	while (i < 8)
+	while (i < 7)
 	{
 		m.in = ob->hash[i];
 		j = 4;
