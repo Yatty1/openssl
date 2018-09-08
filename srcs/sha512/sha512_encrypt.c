@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:31:25 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 00:54:42 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 15:12:01 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void				init_properties(t_sha512 *ob)
 	ob->csigf[0] = &sha512csig0;
 	ob->csigf[1] = &sha512csig1;
 	ob->ssigf[0] = &sha512ssig0;
-	ob->ssigf[1] = &sha512csig1;
+	ob->ssigf[1] = &sha512ssig1;
 }
 
 t_sha512				*init_sha512(const char *str, int len)
@@ -86,7 +86,7 @@ t_sha512				*init_sha512(const char *str, int len)
 	ft_memcpy(ob->msg, str, len);
 	ob->msg[len] = (unsigned char)0x80;
 	i = len + 1;
-	while (i < (128 * ob->chunk_n) - 8)
+	while (i < (128 * ob->chunk_n) - 16)
 		ob->msg[i++] = 0;
 	u = len * 8;
 	ob->msg[i] = u >> 120;
