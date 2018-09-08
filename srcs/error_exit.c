@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 21:05:10 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 17:59:58 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/07 22:24:59 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		illegal_op_md(char *cmd, char *option)
 	return (0);
 }
 
-int		open_error(char	*cmd, char *filename)
+int		open_error(char *cmd, char *filename)
 {
 	ft_putstrerr(cmd);
 	ft_putstrerr(": ");
@@ -45,5 +45,4 @@ int		noparam_error(char *cmd, char *option)
 	ft_putstrerr(cmd);
 	ft_putstrerr(" [-pqr] [-s string] [files ...]\n");
 	return (0);
-
 }

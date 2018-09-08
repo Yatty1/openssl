@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 22:03:37 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/07 22:36:37 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static const uint32_t	g_sk[64] = {
 static void				init_properties(t_sha256 *ob)
 {
 	ob->hash[0] = 0x6a09e667;
-    ob->hash[1] = 0xbb67ae85;
-    ob->hash[2] = 0x3c6ef372;
-    ob->hash[3] = 0xa54ff53a;
-    ob->hash[4] = 0x510e527f;
-    ob->hash[5] = 0x9b05688c;
-    ob->hash[6] = 0x1f83d9ab;
-    ob->hash[7] = 0x5be0cd19;
+	ob->hash[1] = 0xbb67ae85;
+	ob->hash[2] = 0x3c6ef372;
+	ob->hash[3] = 0xa54ff53a;
+	ob->hash[4] = 0x510e527f;
+	ob->hash[5] = 0x9b05688c;
+	ob->hash[6] = 0x1f83d9ab;
+	ob->hash[7] = 0x5be0cd19;
 	ob->ch = &sha256ch;
 	ob->ma = &sha256ma;
 	ob->sigf[0] = &sha256sig0;
@@ -49,7 +49,8 @@ static void				init_properties(t_sha256 *ob)
 	ob->sigf[3] = &sha256sig3;
 }
 
-/* How to do padding
+/*
+** How to do padding
 ** count chunks based on length
 ** add 1 to the end
 ** fill up 0 k bits based on this formula l + 1 + k = 448
@@ -103,7 +104,8 @@ void					transform(t_sha256 *ob)
 	t = 0;
 	while (t < 64)
 	{
-		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_sk[t] + ob->w[t];
+		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4])
+			+ ob->ch(ob->h) + g_sk[t] + ob->w[t];
 		ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
 		ob->h[7] = ob->h[6];
 		ob->h[6] = ob->h[5];

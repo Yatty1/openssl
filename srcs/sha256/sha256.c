@@ -6,15 +6,16 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 18:45:11 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 22:11:35 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/07 22:23:01 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+
 void			sha256_encrypt_stdio(int op)
 {
-	char	*line;
-	char	*str;
+	char		*line;
+	char		*str;
 	t_sha256	*sha256;
 
 	str = ft_strnew(1);
@@ -63,10 +64,10 @@ void			printsha256_with_op(t_sha256 *sha256, char *str, int *op)
 
 int				sha256_encrypt_file(char *filename, int *op)
 {
-	int		fd;
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*str;
+	int			fd;
+	int			ret;
+	char		buf[BUFF_SIZE + 1];
+	char		*str;
 	t_sha256	*sha256;
 
 	if ((fd = open(filename, O_RDONLY)) < 0)
