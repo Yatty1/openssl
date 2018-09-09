@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:12:37 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 16:31:07 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 22:02:54 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			sha512_encrypt_stdio(int op)
 	else
 		output_sha512(sha512);
 	ft_putchar('\n');
+	ft_strdel(&str);
 }
 
 void			printsha512_with_op(t_sha512 *sha512, char *str, int *op)
@@ -44,7 +45,7 @@ void			printsha512_with_op(t_sha512 *sha512, char *str, int *op)
 	else if (MATCH(*op, FLR) && !MATCH(*op, FLS))
 	{
 		output_sha512(sha512);
-		ft_putstr(" ");
+		ft_putstr(" *");
 		ft_putstr(str);
 	}
 	else if (MATCH(*op, FLS))
@@ -81,6 +82,7 @@ int				sha512_encrypt_file(char *filename, int *op)
 	sha512 = init_sha512(str, ft_strlen(str));
 	sha512 = transform_sha512(sha512);
 	printsha512_with_op(sha512, filename, op);
+	ft_strdel(&str);
 	return (1);
 }
 

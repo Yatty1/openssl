@@ -1,4 +1,61 @@
-printf "%b" "sha256\n"
+printf "%b" "\nmd5\n"
+arg="Makefile"; ./ft_ssl md5 $arg && openssl md5 $arg
+arg="author"; ./ft_ssl md5 $arg && openssl md5 $arg
+echo test/test1 | ./ft_ssl md5 && echo test/test1 | openssl md5
+echo test/test2 | ./ft_ssl md5 && echo test/test2 | openssl md5
+echo "This is awesome" | ./ft_ssl md5 && echo "This is awesome" | openssl md5
+
+printf "%b" ">> echo \"pickle rick\" | ./ft_ssl md5 && echo "pickle"openssl md5\n"
+echo "pickle rick" | ./ft_ssl md5 && echo "pickle rick" | openssl md5
+
+printf "%b" ">> echo \"Do not pity the dead, Harry.\" | ./ft_ssl md5 -p\n"
+echo "Do not pity the dead, Harry." | ./ft_ssl md5 -p && echo "Do not pity the dead, Harry." | md5 -p
+
+printf "%b" ">> echo \"Pity the living.\" | ./ft_ssl md5 -p -r\n"
+echo "Pity the living." | ./ft_ssl md5 -p -r
+printf "%b" ">> echo \"Pity the living.\" | md5 -p -r\n"
+echo "Pity the living." | md5 -p -r
+
+printf "%b" ">> echo \"And above all,\" > file && ./ft_ssl md5 file && openssl md5 file\n"
+echo "And above all," > file && ./ft_ssl md5 file && openssl md5 file
+
+printf "%b" ">> ./ft_ssl md5 -r file && openssl md5 -r file\n"
+./ft_ssl md5 -r file && openssl md5 -r file
+
+printf "%b" ">> ./ft_ssl md5 -s \"pity those that aren't following baerista on spotify.\"\n"
+./ft_ssl md5 -s "pity those that aren't following baerista on spotify."
+
+printf "%b" ">> echo \"be sure to handle edge cases carefully\" | ./ft_ssl md5 -p file\n"
+echo "be sure to handle edge cases carefully" | ./ft_ssl md5 -p file
+printf "%b" ">> echo \"be sure to handle edge cases carefully\" | md5 -p file\n"
+echo "be sure to handle edge cases carefully" | md5 -p file
+
+printf "%b" ">> echo \"some of this will not make sense at first\" | ./ft_ssl md5 file\n"
+echo "some of this will not make sense at first" | ./ft_ssl md5 file
+printf "%b" ">> echo \"some of this will not make sense at first\" | md5 file\n"
+echo "some of this will not make sense at first" | md5 file
+
+printf "%b" ">> echo \"but eventually you will understand\" | ./ft_ssl md5 -p -r file\n"
+echo "but eventually you will understand" | ./ft_ssl md5 -p -r file
+printf "%b" ">> echo \"but eventually you will understand\" | md5 -p -r file\n"
+echo "but eventually you will understand" | md5 -p -r file
+
+printf "%b" ">> echo \"GL HF let's go\" | ./ft_ssl md5 -p -s \"foo\" file\n"
+echo "GL HF let's go" | ./ft_ssl md5 -p -s "foo" file
+printf "%b" ">> echo \"GL HF let's go\" | md5 -p -s \"foo\" file\n"
+echo "GL HF let's go" | md5 -p -s "foo" file
+
+printf "%b" ">> echo \"one more thing\" | ./ft_ssl md5 -r -p -s \"foo\" file -s \"bar\"\n"
+echo "one more thing" | ./ft_ssl md5 -r -p -s "foo" file -s "bar"
+printf "%b" ">> echo \"one more thing\" | md5 -r -p -s \"foo\" file -s \"bar\"\n"
+echo "one more thing" | md5 -r -p -s "foo" file -s "bar"
+
+printf "%b" ">> echo "just to be extra clear" | ./ft_ssl md5 -r -q -p -s "foo" file\n"
+echo "just to be extra clear" | ./ft_ssl md5 -r -q -p -s "foo" file
+printf "%b" ">> echo "just to be extra clear" | md5 -r -q -p -s "foo" file\n"
+echo "just to be extra clear" | md5 -r -q -p -s "foo" file
+
+printf "%b" "\nsha256\n"
 arg="Makefile"; ./ft_ssl sha256 $arg && openssl sha256 $arg
 arg="author"; ./ft_ssl sha256 $arg && openssl sha256 $arg
 echo test/test1 | ./ft_ssl sha256 && echo test/test1 | openssl sha256
@@ -12,13 +69,6 @@ echo test/test1 | ./ft_ssl sha224 && echo test/test1 | openssl sha224
 echo test/test2 | ./ft_ssl sha224 && echo test/test2 | openssl sha224
 echo "This is awesome" | ./ft_ssl sha224 && echo "This is awesome" | openssl sha224
 
-printf "%b" "\nmd5\n"
-arg="Makefile"; ./ft_ssl md5 $arg && openssl md5 $arg
-arg="author"; ./ft_ssl md5 $arg && openssl md5 $arg
-echo test/test1 | ./ft_ssl md5 && echo test/test1 | openssl md5
-echo test/test2 | ./ft_ssl md5 && echo test/test2 | openssl md5
-echo "This is awesome" | ./ft_ssl md5 && echo "This is awesome" | openssl md5
-
 printf "%b" "\nsha512\n"
 arg="Makefile"; ./ft_ssl sha512 $arg && openssl sha512 $arg
 arg="author"; ./ft_ssl sha512 $arg && openssl sha512 $arg
@@ -26,3 +76,4 @@ echo test/test1 | ./ft_ssl sha512 && echo test/test1 | openssl sha512
 echo test/test2 | ./ft_ssl sha512 && echo test/test2 | openssl sha512
 echo test/test3 | ./ft_ssl sha512 && echo test/test3 | openssl sha512
 echo "This is awesome" | ./ft_ssl sha512 && echo "This is awesome" | openssl sha512
+

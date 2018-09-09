@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 19:37:18 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/09 00:18:52 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void				process_sha3(int argc, char **argv);
 
 int					open_error(char *cmd, char *filename);
 int					noparam_error(char *cmd, char *option);
-void				error_cmd(char *str);
-void				err_mdcmd(void);
+void				error_cmd(char *str, t_cmd *cmd);
+void				err_mdcmd(t_cmd *cmd);
 void				err_stdcmd(void);
 void				err_ciphercmd(void);
 int					illegal_op_md(char *cmd, char *option);

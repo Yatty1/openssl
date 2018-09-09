@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:46:55 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 23:47:31 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/09 00:21:05 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	dispatcher(int argc, char **argv)
 		}
 		i++;
 	}
-	error_cmd(argv[0]);
+	error_cmd(argv[0], g_cmd_table);
 }
 
 int		main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 18:45:11 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 20:09:27 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 21:45:59 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			sha256_encrypt_stdio(int op)
 	else
 		output_sha256(sha256);
 	ft_putchar('\n');
+	ft_strdel(&str);
 }
 
 void			printsha256_with_op(t_sha256 *sha256, char *str, int *op)
@@ -44,7 +45,7 @@ void			printsha256_with_op(t_sha256 *sha256, char *str, int *op)
 	else if (MATCH(*op, FLR) && !MATCH(*op, FLS))
 	{
 		output_sha256(sha256);
-		ft_putstr(" ");
+		ft_putstr(" *");
 		ft_putstr(str);
 	}
 	else if (MATCH(*op, FLS))
@@ -81,6 +82,7 @@ int				sha256_encrypt_file(char *filename, int *op)
 	sha256 = init_sha256(str, ft_strlen(str));
 	sha256 = transform_sha256(sha256);
 	printsha256_with_op(sha256, filename, op);
+	ft_strdel(&str);
 	return (1);
 }
 

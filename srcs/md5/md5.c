@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/01 18:44:38 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 19:31:00 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 23:21:12 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void			md5_encrypt_stdio(int op)
 	else
 		output_md5(md5);
 	ft_putchar('\n');
+	ft_strdel(&str);
 }
 
 void			printmd5_with_op(t_md5 *md5, char *str, int *op)
@@ -44,7 +45,7 @@ void			printmd5_with_op(t_md5 *md5, char *str, int *op)
 	else if (MATCH(*op, FLR) && !MATCH(*op, FLS))
 	{
 		output_md5(md5);
-		ft_putstr(" ");
+		ft_putstr(" *");
 		ft_putstr(str);
 	}
 	else if (MATCH(*op, FLS))
@@ -81,6 +82,7 @@ int				md5_encrypt_file(char *filename, int *op)
 	md5 = init_md5(str, ft_strlen(str));
 	md5 = transform_md5(md5);
 	printmd5_with_op(md5, filename, op);
+	ft_strdel(&str);
 	return (1);
 }
 
