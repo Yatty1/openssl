@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 22:43:59 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 23:01:22 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 19:32:02 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void			printsha224_with_op(t_sha256 *sha224, char *str, int *op)
 
 int				sha224_encrypt_file(char *filename, int *op)
 {
-	int		fd;
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*str;
+	int			fd;
+	int			ret;
+	char		buf[BUFF_SIZE + 1];
+	char		*str;
 	t_sha256	*sha224;
 
 	if ((fd = open(filename, O_RDONLY)) < 0)
