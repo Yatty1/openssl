@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 13:38:20 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 19:37:18 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-#include <stdio.h>
 
 # define MATCH(value, op) ((value & op) == op)
 # define FLP 0x01
@@ -47,13 +46,13 @@ typedef struct		s_cmd
 typedef union		u_encode32
 {
 	uint32_t		in;
-	unsigned  char	b[4];
+	unsigned char	b[4];
 }					t_encode32;
 
 typedef union		u_encode64
 {
 	uint64_t		in;
-	unsigned  char	b[8];
+	unsigned char	b[8];
 }					t_encode64;
 
 void				process_stdio_cmd(void);

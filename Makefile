@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/08 17:08:34 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/08 19:43:46 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SSL			:= ft_ssl
 MD5SRC		:= $(addprefix $(MD5DIR)/, md5.c encrypt.c funcs.c)
 
 SHA256SRC	:= $(addprefix $(SHA256DIR)/, sha256.c encrypt.c \
-						sigs.c funcs.c)
+						sigs.c funcs.c encoder.c)
 
 SHA224SRC	:= $(addprefix $(SHA224DIR)/, sha224.c encrypt.c)
 
@@ -45,7 +45,7 @@ SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
 SSLSRC		+= $(addprefix $(SRCDIR)/, $(MD5SRC) $(SHA256SRC) \
 			   			$(SHA224SRC) $(SHA512SRC))
 
-#colors
+#color
 COM_COLOR	:= \033[0;34m
 OK_COLOR	:= \033[0;32m
 EXEC_COLOR	:= \033[1;32m

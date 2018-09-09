@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 16:05:42 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 19:41:10 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 	{
 		t = -1;
 		while (++t < 16)
-			ob->w[t] = ENCODE32(ob->msg, offset, t);
+			ob->w[t] = encode32(ob, offset, t);
 		t = 15;
 		while (++t < 64)
 			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7]

@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:24:33 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 17:09:10 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 19:38:37 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ typedef struct	s_sha512
 	int				chunk_n;
 }				t_sha512;
 
-uint64_t	sha512ch(uint64_t hash[8]);
-uint64_t	sha512ma(uint64_t hash[8]);
-uint64_t	sha512csig0(uint64_t hash);
-uint64_t	sha512csig1(uint64_t hash);
-uint64_t	sha512ssig0(uint64_t hash);
-uint64_t	sha512ssig1(uint64_t hash);
+uint64_t		sha512ch(uint64_t hash[8]);
+uint64_t		sha512ma(uint64_t hash[8]);
+uint64_t		sha512csig0(uint64_t hash);
+uint64_t		sha512csig1(uint64_t hash);
+uint64_t		sha512ssig0(uint64_t hash);
+uint64_t		sha512ssig1(uint64_t hash);
 
-uint64_t	encode64(t_sha512 *ob, int offset, int t);
-void		decode128(t_sha512 *ob, unsigned __int128 u, int i);
+uint64_t		encode64(t_sha512 *ob, int offset, int t);
+void			decode128(t_sha512 *ob, unsigned __int128 u, int i);
 
-t_sha512	*init_sha512(const char *str, int len);
-t_sha512	*transform_sha512(t_sha512 *ob);
-void		output_sha512(t_sha512 *ob);
+t_sha512		*init_sha512(const char *str, int len);
+t_sha512		*transform_sha512(t_sha512 *ob);
+void			output_sha512(t_sha512 *ob);
 
 #endif
