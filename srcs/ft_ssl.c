@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:46:55 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/01 18:46:47 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/09 01:02:35 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 t_cmd	g_cmd_table[CMD_NUM] = {
 	{"md5", &process_md5},
 	{"sha256", &process_sha256},
+	{"sha224", &process_sha224},
+	{"sha512", &process_sha512},
+	{"base64", &process_base64},
 };
 
 void	dispatcher(int argc, char **argv)
@@ -31,7 +34,7 @@ void	dispatcher(int argc, char **argv)
 		}
 		i++;
 	}
-	error_cmd(argv[0]);
+	error_cmd(argv[0], g_cmd_table);
 }
 
 int		main(int argc, char **argv)

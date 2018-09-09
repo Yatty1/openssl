@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 13:21:09 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/09 01:01:20 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "../libft/includes/ft_printf.h"
 # include "ft_md5.h"
 # include "ft_sha256.h"
+# include "ft_sha512.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-#include <stdio.h>
 
 # define MATCH(value, op) ((value & op) == op)
 # define FLP 0x01
@@ -30,7 +30,10 @@
 # define FLR 0x04
 # define FLS 0x08
 
-# define CMD_NUM 2
+# define CMD_NUM 4
+
+# define ROTR(x, n, w) ((x >> n) | (x << (w - n)))
+# define ROTL(x, n, w) ((x << n) | (x >> (w - n)))
 
 typedef void		(t_hash_func)(int, char **);
 
@@ -43,8 +46,14 @@ typedef struct		s_cmd
 typedef union		u_encode32
 {
 	uint32_t		in;
-	unsigned  char	b[4];
+	unsigned char	b[4];
 }					t_encode32;
+
+typedef union		u_encode64
+{
+	uint64_t		in;
+	unsigned char	b[8];
+}					t_encode64;
 
 void				process_stdio_cmd(void);
 void				dispatcher(int argc, char **argv);
@@ -58,7 +67,9 @@ int					validate_option(char **argv, char *cmd,
 
 void				process_md5(int argc, char **argv);
 void				process_sha256(int argc, char **argv);
-void				process_sha3(int argc, char **argv);
+void				process_sha224(int argc, char **argv);
+void				process_sha512(int argc, char **argv);
+void				process_base64(int argc, char **argv);
 
 /*
 ** error messages
@@ -66,8 +77,8 @@ void				process_sha3(int argc, char **argv);
 
 int					open_error(char *cmd, char *filename);
 int					noparam_error(char *cmd, char *option);
-void				error_cmd(char *str);
-void				err_mdcmd(void);
+void				error_cmd(char *str, t_cmd *cmd);
+void				err_mdcmd(t_cmd *cmd);
 void				err_stdcmd(void);
 void				err_ciphercmd(void);
 int					illegal_op_md(char *cmd, char *option);

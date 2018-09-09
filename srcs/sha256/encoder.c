@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256_funcs.c                                     :+:      :+:    :+:   */
+/*   encoder.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/04 20:49:08 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/06 22:52:05 by syamada          ###   ########.fr       */
+/*   Created: 2018/09/08 19:22:27 by syamada           #+#    #+#             */
+/*   Updated: 2018/09/08 19:40:11 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-uint32_t	sha256ch(uint32_t hash[8])
+uint32_t	encode32(t_sha256 *ob, int offset, int t)
 {
-	return ((hash[4] & hash[5]) ^ (~hash[4] & hash[6]));
-}
-
-uint32_t	sha256ma(uint32_t hash[8])
-{
-	return ((hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]));
+	return (ob->msg[offset + t * 4 + 0] << 24
+			| ob->msg[offset + t * 4 + 1] << 16
+			| ob->msg[offset + t * 4 + 2] << 8
+			| ob->msg[offset + t * 4 + 3] << 0);
 }

@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/05 12:45:24 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/08 19:43:46 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,31 @@ LIBDIR		:= libft
 SRCDIR		:= srcs
 INCDIR		:= includes
 
+MD5DIR		:= md5
+SHA256DIR	:= sha256
+SHA224DIR	:= sha224
+SHA512DIR	:= sha512
+
 SSL			:= ft_ssl
+
+MD5SRC		:= $(addprefix $(MD5DIR)/, md5.c encrypt.c funcs.c)
+
+SHA256SRC	:= $(addprefix $(SHA256DIR)/, sha256.c encrypt.c \
+						sigs.c funcs.c encoder.c)
+
+SHA224SRC	:= $(addprefix $(SHA224DIR)/, sha224.c encrypt.c)
+
+SHA512SRC	:= $(addprefix $(SHA512DIR)/, sha512.c encrypt.c \
+						sigs.c funcs.c encoder.c)
+
 SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
 					option_checker.c option_helper.c \
-					error_cmd.c error_exit.c \
-					md5.c md5_encrypt.c md5_funcs.c \
-					sha256.c sha256_encrypt.c sha256_sigs.c sha256_funcs.c)
+					error_cmd.c error_exit.c)
 
-#colors
+SSLSRC		+= $(addprefix $(SRCDIR)/, $(MD5SRC) $(SHA256SRC) \
+			   			$(SHA224SRC) $(SHA512SRC))
+
+#color
 COM_COLOR	:= \033[0;34m
 OK_COLOR	:= \033[0;32m
 EXEC_COLOR	:= \033[1;32m
@@ -59,6 +76,11 @@ fclean:
 
 .PHONY: re
 re: fclean all
+
+sanitize: $(LIBDIR) $(LIBDIR)/$(LIB)
+	@printf "%b" "$(NO_COLOR)Creating $(EXEC_COLOR)$@"
+	@$(CC) -o $@ $(CFLAG) $(SANITIZER) $(SSLSRC) -I$(INCDIR) -L$< -lft
+	@printf "%b" " ✔\n"
 
 .PHONY: debug
 debug:

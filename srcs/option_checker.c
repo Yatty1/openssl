@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:29:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/03 16:43:50 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 22:00:57 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	**create_argv(int argc, char **argv, int *op)
 
 	i = 0;
 	new = (char **)malloc(sizeof(char *) * (argc + 1));
-	while (argv[i] && argv[i][0] == '-')
+	while (argv[i] && argv[i][0] == '-' && !ft_strequ(argv[i], "-"))
 	{
 		if ((len = ft_strchr_i(argv[i], 's')) > 0 && argv[i][len + 1] != '\0')
 		{
@@ -72,7 +72,7 @@ char		**check_mdop(int argc, char **argv, char *cmd, int *op)
 		return (argv);
 	if (!validate_option(argv, cmd, &is_md_option, &illegal_op_md))
 		return (NULL);
-	while (argv[i] && argv[i][0] == '-')
+	while (argv[i] && argv[i][0] == '-' && !ft_strequ(argv[i], "-"))
 	{
 		if ((len = ft_strchr_i(argv[i], 's')) > 0)
 			*op |= FLS;

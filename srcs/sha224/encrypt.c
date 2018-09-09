@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256_encrypt.c                                   :+:      :+:    :+:   */
+/*   sha224_encrypt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/04 16:13:35 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/07 13:21:09 by syamada          ###   ########.fr       */
+/*   Created: 2018/09/07 22:46:13 by syamada           #+#    #+#             */
+/*   Updated: 2018/09/08 19:41:30 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static const uint32_t	g_k[64] = {
+static const uint32_t	g_sk[64] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -33,14 +33,14 @@ static const uint32_t	g_k[64] = {
 
 static void				init_properties(t_sha256 *ob)
 {
-	ob->hash[0] = 0x6a09e667;
-    ob->hash[1] = 0xbb67ae85;
-    ob->hash[2] = 0x3c6ef372;
-    ob->hash[3] = 0xa54ff53a;
-    ob->hash[4] = 0x510e527f;
-    ob->hash[5] = 0x9b05688c;
-    ob->hash[6] = 0x1f83d9ab;
-    ob->hash[7] = 0x5be0cd19;
+	ob->hash[0] = 0xc1059ed8;
+	ob->hash[1] = 0x367cd507;
+	ob->hash[2] = 0x3070dd17;
+	ob->hash[3] = 0xf70e5939;
+	ob->hash[4] = 0xffc00b31;
+	ob->hash[5] = 0x68581511;
+	ob->hash[6] = 0x64f98fa7;
+	ob->hash[7] = 0xbefa4fa4;
 	ob->ch = &sha256ch;
 	ob->ma = &sha256ma;
 	ob->sigf[0] = &sha256sig0;
@@ -49,20 +49,11 @@ static void				init_properties(t_sha256 *ob)
 	ob->sigf[3] = &sha256sig3;
 }
 
-/* How to do padding
-** count chunks based on length
-** add 1 to the end
-** fill up 0 k bits based on this formula l + 1 + k = 448
-** (where l == length of str)
-** length * 8 == length in bits
-** add original length to last 64 bits of msg
-*/
-
-t_sha256				*init_sha256(const char *str, int len)
+t_sha256				*init_sha224(const char *str, int len)
 {
 	t_sha256	*ob;
 	int			i;
-	uint32_t	u;
+	long long	u;
 
 	ob = (t_sha256 *)malloc(sizeof(t_sha256));
 	init_properties(ob);
@@ -71,37 +62,29 @@ t_sha256				*init_sha256(const char *str, int len)
 	ft_memcpy(ob->msg, str, len);
 	ob->msg[len] = (unsigned char)0x80;
 	i = len + 1;
-	while (i < (64 * ob->chunk_n))
+	while (i < (64 * ob->chunk_n) - 8)
 		ob->msg[i++] = 0;
 	u = len * 8;
-	//here it's big-endian boii!!!!!!!
-	i -= 4;
-	ob->msg[i] = u >> 24;
-	ob->msg[i + 1] = u >> 16;
-	ob->msg[i + 2] = u >> 8;
-	ob->msg[i + 3] = u;
+	ob->msg[i] = u >> 56;
+	ob->msg[i + 1] = u >> 48;
+	ob->msg[i + 2] = u >> 40;
+	ob->msg[i + 3] = u >> 32;
+	ob->msg[i + 4] = u >> 24;
+	ob->msg[i + 5] = u >> 16;
+	ob->msg[i + 6] = u >> 8;
+	ob->msg[i + 7] = u;
 	return (ob);
 }
 
-/*
-**	How to transform
-** a message schedule of sixty four 32-bit words
-** eight working variables of 32 bits each
-** a hash value of eight 32 bits words
-** 1. prepare the message schedule W
-** 2. initialize the eight working variables with const hash nums
-** 3. 64 steps with sig 0 and sig 1
-** 4. compute i th intermediate hash value
-*/
-
-void					transform(t_sha256 *ob)
+static void				transform(t_sha256 *ob)
 {
 	int		t;
 
 	t = 0;
 	while (t < 64)
 	{
-		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4]) + ob->ch(ob->h) + g_k[t] + ob->w[t];
+		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4])
+			+ ob->ch(ob->h) + g_sk[t] + ob->w[t];
 		ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
 		ob->h[7] = ob->h[6];
 		ob->h[6] = ob->h[5];
@@ -115,7 +98,7 @@ void					transform(t_sha256 *ob)
 	}
 }
 
-t_sha256				*transform_sha256(t_sha256 *ob)
+t_sha256				*transform_sha224(t_sha256 *ob)
 {
 	int			t;
 	int			offset;
@@ -125,8 +108,7 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 	{
 		t = -1;
 		while (++t < 16)
-			ob->w[t] = ob->msg[offset + t * 4 + 0] << 24 | ob->msg[offset + t * 4 + 1] << 16
-				| ob->msg[offset + t * 4 + 2] << 8 | ob->msg[offset + t * 4 + 3] << 0;
+			ob->w[t] = encode32(ob, offset, t);
 		t = 15;
 		while (++t < 64)
 			ob->w[t] = ob->sigf[3](ob->w[t - 2]) + ob->w[t - 7]
@@ -143,14 +125,14 @@ t_sha256				*transform_sha256(t_sha256 *ob)
 	return (ob);
 }
 
-void					output_sha256(t_sha256 *ob)
+void					output_sha224(t_sha256 *ob)
 {
 	int			i;
 	int			j;
 	t_encode32	m;
 
 	i = 0;
-	while (i < 8)
+	while (i < 7)
 	{
 		m.in = ob->hash[i];
 		j = 4;

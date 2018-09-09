@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/03 16:13:57 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/06 15:13:22 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 23:26:07 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,12 @@ static uint32_t	g_k[64] = {
 };
 
 static short	g_m[5] = {
-	1, 5, 3, 7
+	1, 5, 3, 7,
 };
 
 static short	g_o[5] = {
-	0, 1, 5 ,0
+	0, 1, 5, 0,
 };
-
-
-// 64 bits representing the length of original message, modulo 2 ^ 64
-// append "0" bit until message length in bits вс 448 (mod 512)
-// append original length in bits mod 2^64 to message
 
 t_md5			*init_md5(const char *msg, int len)
 {

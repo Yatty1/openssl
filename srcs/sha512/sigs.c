@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256_funcs.c                                     :+:      :+:    :+:   */
+/*   sha512_sigs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/04 16:25:45 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/06 22:52:06 by syamada          ###   ########.fr       */
+/*   Created: 2018/09/07 23:20:42 by syamada           #+#    #+#             */
+/*   Updated: 2018/09/08 13:46:29 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-uint32_t	sha256sig0(uint32_t hash)
+uint64_t	sha512csig0(uint64_t hash)
 {
-	return ((ROTR(hash, 2, 32)) ^ (ROTR(hash, 13, 32)) ^ (ROTR(hash, 22, 32)));
+	return (ROTR(hash, 28, 64) ^ ROTR(hash, 34, 64) ^ ROTR(hash, 39, 64));
 }
 
-uint32_t	sha256sig1(uint32_t hash)
+uint64_t	sha512csig1(uint64_t hash)
 {
-	return ((ROTR(hash, 6, 32)) ^ (ROTR(hash, 11, 32)) ^ (ROTR(hash, 25, 32)));
+	return (ROTR(hash, 14, 64) ^ ROTR(hash, 18, 64) ^ ROTR(hash, 41, 64));
 }
 
-uint32_t	sha256sig2(uint32_t hash)
+uint64_t	sha512ssig0(uint64_t hash)
 {
-	return ((ROTR(hash, 7, 32)) ^ (ROTR(hash, 18, 32)) ^ (hash >> 3));
+	return (ROTR(hash, 1, 64) ^ ROTR(hash, 8, 64) ^ (hash >> 7));
 }
 
-uint32_t	sha256sig3(uint32_t hash)
+uint64_t	sha512ssig1(uint64_t hash)
 {
-	return ((ROTR(hash, 17, 32)) ^ (ROTR(hash, 19, 32)) ^ (hash >> 10));
+	return (ROTR(hash, 19, 64) ^ ROTR(hash, 61, 64) ^ (hash >> 6));
 }
