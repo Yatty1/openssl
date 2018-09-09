@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/09 00:18:52 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/09 01:01:20 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void				process_md5(int argc, char **argv);
 void				process_sha256(int argc, char **argv);
 void				process_sha224(int argc, char **argv);
 void				process_sha512(int argc, char **argv);
-void				process_sha3(int argc, char **argv);
+void				process_base64(int argc, char **argv);
 
 /*
 ** error messages
