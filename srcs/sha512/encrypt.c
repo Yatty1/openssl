@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:31:25 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 16:56:47 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 17:08:02 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,7 @@ t_sha512				*init_sha512(const char *str, int len)
 	while (i < (128 * ob->chunk_n) - 16)
 		ob->msg[i++] = 0;
 	u = len * 8;
-	ob->msg[i] = u >> 120;
-	ob->msg[i + 1] = u >> 112;
-	ob->msg[i + 2] = u >> 104;
-	ob->msg[i + 3] = u >> 96;
-	ob->msg[i + 4] = u >> 88;
-	ob->msg[i + 5] = u >> 80;
-	ob->msg[i + 6] = u >> 72;
-	ob->msg[i + 7] = u >> 64;
-	ob->msg[i + 8] = u >> 56;
-	ob->msg[i + 9] = u >> 48;
-	ob->msg[i + 10] = u >> 40;
-	ob->msg[i + 11] = u >> 32;
-	ob->msg[i + 12] = u >> 24;
-	ob->msg[i + 13] = u >> 16;
-	ob->msg[i + 14] = u >> 8;
-	ob->msg[i + 15] = u;
+	decode128(ob, u, i);
 	return (ob);
 }
 
@@ -140,17 +125,7 @@ t_sha512				*transform_sha512(t_sha512 *ob)
 	{
 		t = -1;
 		while (++t < 16)
-		{
-			ob->w[t] = ob->msg[offset + t * 8 + 0] << 24
-				| ob->msg[offset + t * 8 + 1] << 16
-				| ob->msg[offset + t * 8 + 2] << 8
-				| ob->msg[offset + t * 8 + 3];
-			ob->w[t] = ob->w[t] << 32
-				| ob->msg[offset + t * 8 + 4] << 24
-				| ob->msg[offset + t * 8 + 5] << 16
-				| ob->msg[offset + t * 8 + 6] << 8
-				| ob->msg[offset + t * 8 + 7];
-		}
+			ob->w[t] = encode64(ob, offset, t);
 		t = 15;
 		while (++t < 80)
 			ob->w[t] = ob->ssigf[1](ob->w[t - 2]) + ob->w[t - 7]

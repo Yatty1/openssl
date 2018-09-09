@@ -6,42 +6,12 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 23:24:33 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/08 16:56:22 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/08 17:09:10 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SHA512_H
 # define FT_SHA512_H
-# include "ft_ssl.h"
-
-# define ENCODE64(msg, offset, t)		\
-	(msg[offset + t * 8 + 0] << 56		\
-		| msg[offset + t * 8 + 1] << 48	\
-		| msg[offset + t * 8 + 2] << 40	\
-		| msg[offset + t * 8 + 3] << 32	\
-		| msg[offset + t * 8 + 4] << 24	\
-		| msg[offset + t * 8 + 5] << 16	\
-		| msg[offset + t * 8 + 6] << 8	\
-		| msg[offset + t * 8 + 7])
-
-# define B_END(msg, i, u)	\
-	msg[i] = u >> 120;		\
-	msg[i + 1] = u >> 112;	\
-	msg[i + 2] = u >> 104;	\
-	msg[i + 3] = u >> 96;	\
-	msg[i + 4] = u >> 88;	\
-	msg[i + 5] = u >> 80;	\
-	msg[i + 6] = u >> 72;	\
-	msg[i + 7] = u >> 64;	\
-	msg[i + 8] = u >> 56;	\
-	msg[i + 9] = u >> 48;	\
-	msg[i + 10] = u >> 40;	\
-	msg[i + 11] = u >> 32;	\
-	msg[i + 12] = u >> 24;	\
-	msg[i + 13] = u >> 16;	\
-	msg[i + 14] = u >> 8;	\
-	msg[i + 15] = u;
-
 
 typedef uint64_t	(t_sha512func)(uint64_t hash[8]);
 typedef uint64_t	(t_sha512csigf)(uint64_t hash);
@@ -68,6 +38,9 @@ uint64_t	sha512csig0(uint64_t hash);
 uint64_t	sha512csig1(uint64_t hash);
 uint64_t	sha512ssig0(uint64_t hash);
 uint64_t	sha512ssig1(uint64_t hash);
+
+uint64_t	encode64(t_sha512 *ob, int offset, int t);
+void		decode128(t_sha512 *ob, unsigned __int128 u, int i);
 
 t_sha512	*init_sha512(const char *str, int len);
 t_sha512	*transform_sha512(t_sha512 *ob);

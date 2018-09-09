@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/08 17:00:00 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/08 17:08:34 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SHA256SRC	:= $(addprefix $(SHA256DIR)/, sha256.c encrypt.c \
 SHA224SRC	:= $(addprefix $(SHA224DIR)/, sha224.c encrypt.c)
 
 SHA512SRC	:= $(addprefix $(SHA512DIR)/, sha512.c encrypt.c \
-						sigs.c funcs.c)
+						sigs.c funcs.c encoder.c)
 
 SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
 					option_checker.c option_helper.c \
@@ -44,7 +44,6 @@ SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
 
 SSLSRC		+= $(addprefix $(SRCDIR)/, $(MD5SRC) $(SHA256SRC) \
 			   			$(SHA224SRC) $(SHA512SRC))
-
 
 #colors
 COM_COLOR	:= \033[0;34m
