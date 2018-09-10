@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/09 01:01:20 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/09 19:51:26 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "ft_md5.h"
 # include "ft_sha256.h"
 # include "ft_sha512.h"
+# include "ft_base64.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -30,7 +31,7 @@
 # define FLR 0x04
 # define FLS 0x08
 
-# define CMD_NUM 4
+# define CMD_NUM 5
 
 # define ROTR(x, n, w) ((x >> n) | (x << (w - n)))
 # define ROTL(x, n, w) ((x << n) | (x >> (w - n)))
@@ -82,5 +83,6 @@ void				err_mdcmd(t_cmd *cmd);
 void				err_stdcmd(void);
 void				err_ciphercmd(void);
 int					illegal_op_md(char *cmd, char *option);
+int					illegal_op_base64(char *cmd, char *option);
 
 #endif

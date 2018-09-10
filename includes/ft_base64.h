@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   base64.c                                           :+:      :+:    :+:   */
+/*   ft_base64.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/09 01:00:39 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/09 19:55:59 by syamada          ###   ########.fr       */
+/*   Created: 2018/09/09 19:48:29 by syamada           #+#    #+#             */
+/*   Updated: 2018/09/09 19:54:22 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#ifndef FT_BASE64_H
+# define FT_BASE64_H
 
-void	process_base64(int argc, char **argv)
-{
-	int		op;
+# define FLD 0x01
+# define FLE 0x02
+# define FLI 0x04
+# define FLO 0x08
 
-	op = 0;
-	if (!(argv = check_base64op(argc, argv, &op)))
-		return ;
-	int i = 0;
-	ft_putnbr(op);
-	ft_putchar('\n');
-	while (argv[i])
-		ft_putendl(argv[i++]);
-}
+char	**check_base64op(int argc, char **argv, int *op);
+
+#endif
