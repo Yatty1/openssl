@@ -12,7 +12,7 @@
 
 #include "ft_ssl.h"
 
-static const uint32_t	g_sk[64] = {
+static const uint32_t	g_k[64] = {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
 	0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -87,7 +87,7 @@ t_sha256				*init_sha256(const char *str, int len)
 }
 
 /*
-**How to transform
+**	How to transform
 ** a message schedule of sixty four 32-bit words
 ** eight working variables of 32 bits each
 ** a hash value of eight 32 bits words
@@ -105,7 +105,7 @@ void					transform(t_sha256 *ob)
 	while (t < 64)
 	{
 		ob->t1 = ob->h[7] + ob->sigf[1](ob->h[4])
-			+ ob->ch(ob->h) + g_sk[t] + ob->w[t];
+			+ ob->ch(ob->h) + g_k[t] + ob->w[t];
 		ob->t2 = ob->sigf[0](ob->h[0]) + ob->ma(ob->h);
 		ob->h[7] = ob->h[6];
 		ob->h[6] = ob->h[5];
