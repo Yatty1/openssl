@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/16 15:14:41 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/16 19:20:44 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/16 23:58:03 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,66 +25,66 @@ static int			take_index(char c)
 			return (i);
 		i++;
 	}
-	return (0);
+	return (i);
 }
 
-void				encode3to4(t_base64 *ob)
+static int			count_appear(const char *str, char c)
 {
-	ob->tokens[0] = ob->bin[0] >> 2;
-	ob->tokens[1] = (ob->bin[0] << 4 & 0x3F) | ob->bin[1] >> 4;
-	ob->tokens[2] = (ob->bin[1] << 2 & 0x3F) | ob->bin[2] >> 6;
-	ob->tokens[3] = ob->bin[2] & 0x3F;
-}
+	int		i;
+	int		count;
 
-void				encode_base64(const char *str, int len)
-{
-	t_base64	*ob;
-	int			i;
-	int			n;
-
-	ob = (t_base64 *)malloc(sizeof(t_base64));
-	ob->pad = len % 3 == 0 ? 0 : 3 - len % 3;
-	ob->bin = ft_memalloc(len + ob->pad);
-	ft_memcpy(ob->bin, str, len);
-	ft_memset(ob->bin + len, 0, ob->pad);
-	while (*ob->bin)
+	i = 0;
+	count = 0;
+	while (str[i])
 	{
-		encode3to4(ob);
-		i = 0;
-		n = ft_strchr_i((char *)ob->bin, '\0');
-		while (n < 3 ? i < 4 - ob->pad : i < 4)
-			ft_putchar(g_b64[ob->tokens[i++]]);
-		ob->bin += 3;
+		if (str[i] == c)
+			count++;
+		i++;
 	}
-	while (ob->pad--)
-		ft_putchar('=');
-	ft_putchar('\n');
+	return (count);
 }
 
-void				decode4to3(t_base64 *ob)
+void				free_base64(t_base64 **ob, int len)
 {
-	ob->chunks[0] = (ob->bin[0] << 2 & 0xFC) | (ob->bin[1] >> 4 & 0x3);
-	ob->chunks[1] = (ob->bin[1] << 4 & 0xF0) | (ob->bin[2] >> 2 & 0xF);
-	ob->chunks[2] = (ob->bin[2] << 6 & 0xC0) | ob->bin[3];
+	t_base64	*tmp;
+
+	tmp = *ob;
+	ft_strdel((char **)&tmp->bin);
+	free(tmp);
+	tmp = NULL;
 }
 
-void				decode_base64(const char *str, int len)
+void				decode4to3(t_base64 *ob, int o)
+{
+	ob->chunks[0] = (ob->bin[o + 0] << 2 & 0xFC)
+					| (ob->bin[o + 1] >> 4 & 0x3);
+	ob->chunks[1] = (ob->bin[o + 1] << 4 & 0xF0)
+					| (ob->bin[o + 2] >> 2 & 0xF);
+	ob->chunks[2] = (ob->bin[o + 2] << 6 & 0xC0) | ob->bin[o + 3];
+}
+
+char				*decode_base64(const char *str, int len)
 {
 	t_base64	*ob;
+	char		*dstr;
 	int			i;
 
 	ob = (t_base64 *)malloc(sizeof(t_base64));
 	ob->bin = ft_memalloc(len);
+	ob->pad = count_appear(str, '=');
+	dstr = ft_strnew(1);
 	i = -1;
 	while (++i < len)
 		ob->bin[i] = take_index(str[i]);
-	while (*ob->bin)
+	ob->offset = 0;
+	while (ob->offset < len)
 	{
-		decode4to3(ob);
+		decode4to3(ob, ob->offset);
 		i = 0;
-		while (i < 3)
-			ft_putchar(ob->chunks[i++]);
-		ob->bin += 4;
+		while ((len - ob->offset) <= 4 ? i < 3 - ob->pad : i < 3)
+			dstr = ft_strappend(dstr, ob->chunks[i++]);
+		ob->offset += 4;
 	}
-	ft_putchar('\n');
+	free_base64(&ob, len);
+	return (dstr);
 }

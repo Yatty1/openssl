@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/27 19:52:51 by syamada           #+#    #+#             */
-/*   Updated: 2018/07/27 20:01:45 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/16 23:33:49 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ char	*ft_strappend(char *str, char c)
 	}
 	new[i++] = c;
 	new[i] = '\0';
-	free(str);
+	ft_strdel(&str);
 	return (new);
 }
