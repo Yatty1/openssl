@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 18:51:28 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/09 19:55:34 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/16 18:42:09 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ char		**check_base64op(int argc, char **argv, int *op)
 		return (NULL);
 	while (argv[i] && argv[i][0] == '-' && !ft_strequ(argv[i], "-"))
 	{
-		*op |= ft_strchr(argv[i], 'd') ? FLE : 0;
-		*op |= ft_strchr(argv[i], 'e') ? FLD : 0;
+		*op |= ft_strchr(argv[i], 'd') ? FLD : 0;
+		*op |= ft_strchr(argv[i], 'e') ? FLE : 0;
 		*op |= ft_strchr(argv[i], 'i') ? FLI : 0;
 		*op |= ft_strchr(argv[i], 'o') ? FLO : 0;
 		i++;
