@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/09 19:48:29 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/09 19:54:22 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/16 16:49:43 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@
 # define FLI 0x04
 # define FLO 0x08
 
+typedef struct	s_base64
+{
+	unsigned char	*bin;
+	unsigned char	tokens[4];
+	int				pad;
+}				t_base64;
+
+void	conversion(const char *str, int len);
 char	**check_base64op(int argc, char **argv, int *op);
 
 #endif
