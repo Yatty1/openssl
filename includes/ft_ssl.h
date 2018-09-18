@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 13:49:46 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/17 22:03:31 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/17 22:55:33 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "ft_sha256.h"
 # include "ft_sha512.h"
 # include "ft_base64.h"
+# include "ft_des.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
