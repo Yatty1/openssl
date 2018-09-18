@@ -6,7 +6,7 @@
 #    By: syamada <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/06 21:25:07 by syamada           #+#    #+#              #
-#    Updated: 2018/09/16 22:09:38 by syamada          ###   ########.fr        #
+#    Updated: 2018/09/17 22:12:04 by syamada          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SHA512SRC	:= $(addprefix $(SHA512DIR)/, sha512.c encrypt.c \
 						sigs.c funcs.c encoder.c)
 
 BASE64SRC	:= $(addprefix $(BASE64DIR)/, base64.c option.c \
-						decoder.c encoder.c)
+						decoder.c encoder.c error.c)
 
 SSLSRC		:= $(addprefix $(SRCDIR)/, ft_ssl.c process_stdio_cmd.c \
 					option_checker.c option_helper.c \
