@@ -6,13 +6,13 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/20 22:00:52 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/20 23:33:19 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/22 21:50:01 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-static const int	pc_1[] = {
+static const int	g_pc_1[] = {
 	57, 49, 41, 33, 25, 17, 9,
 	1, 58, 50, 42, 34, 26, 18,
 	10, 2, 59, 51, 43, 35, 27,
@@ -23,12 +23,12 @@ static const int	pc_1[] = {
 	21, 13, 5, 28, 20, 12, 4,
 };
 
-static const int	key_shift[] = {
+static const int	g_key_shift[] = {
 	1, 1, 2, 2, 2, 2, 2, 2,
 	1, 2, 2, 2, 2, 2, 2, 1,
 };
 
-static const int	pc_2[] = {
+static const int	g_pc_2[] = {
 	14, 17, 11, 24, 1, 5,
 	3, 28, 15, 6, 21, 10,
 	23, 19, 12, 4, 26, 8,
@@ -39,7 +39,7 @@ static const int	pc_2[] = {
 	46, 42, 50, 36, 29, 32,
 };
 
-static const int	ip[] = {
+static const int	g_ip[] = {
 	58, 50, 42, 34, 26, 18, 10, 2,
 	60, 52, 44, 36, 28, 20, 12, 4,
 	62, 54, 46, 38, 30, 22, 14, 6,
@@ -50,7 +50,7 @@ static const int	ip[] = {
 	63, 55, 47, 39, 31, 23, 15, 7,
 };
 
-static const int	e_bit[] = {
+static const int	g_e_bit[] = {
 	32, 1, 2, 3, 4, 5,
 	4, 5, 6, 7, 8, 9,
 	8, 9, 10, 11, 12, 13,
@@ -90,3 +90,68 @@ static const int	e_bit[] = {
 ** -> now you have eight groups of 6 bits, and you are going to take 6 bits and turn it into 4 bits
 **
 */
+
+void	permutate_key(t_des *ob)
+{
+	int		i;
+	int		b;
+
+	while (ob->p_key[b])
+	{
+		while (i % 8 != 0)
+		{
+			(i / 8) < b ? ob->o_key << g_pc_1[i] : ob->o_key >> g_pc_1[i];
+			i++;
+		}
+		b++;
+	}
+}
+
+char	*create_subkey(const char *str)
+{
+	t_des	*ob;
+
+	ob = (t_des *)malloc(sizeof(t_des));
+	ob->original_key = 0x133457799BBCDFF1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

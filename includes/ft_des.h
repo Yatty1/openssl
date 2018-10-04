@@ -6,7 +6,7 @@
 /*   By: syamada <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/17 22:40:39 by syamada           #+#    #+#             */
-/*   Updated: 2018/09/19 21:52:27 by syamada          ###   ########.fr       */
+/*   Updated: 2018/09/22 14:54:55 by syamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@
 
 typedef struct	s_des
 {
-	char	*key;
-	char	*salt;
-	char	*iv;
-	char	*passwd;
+	char		*key;
+	uint64_t	o_key;
+	char		p_key[7];
+	char		*salt;
+	char		*iv;
+	char		*passwd;
+	char		*msg;
 }				t_des;
 
 void		process_des(int argc, char **argv);
